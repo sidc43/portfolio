@@ -30,6 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add click listener to desktop to deselect icons
     document.querySelector('.desktop').addEventListener('click', function(e) {
         if (e.target === this || e.target === document.querySelector('.desktop-icons')) {
+            // Don't deselect if we just finished a drag selection
+            if (justFinishedSelecting) {
+                justFinishedSelecting = false;
+                return;
+            }
             deselectAllIcons();
         }
     });
@@ -525,6 +530,7 @@ document.addEventListener('click', function(e) {
 
 // Desktop Selection Box
 let isSelecting = false;
+let justFinishedSelecting = false;
 let selectionStart = { x: 0, y: 0 };
 let selectionBox = null;
 
@@ -599,6 +605,12 @@ function endSelection() {
     if (isSelecting) {
         isSelecting = false;
         selectionBox.style.display = 'none';
+        
+        // Check if any icons are selected after the drag
+        const selectedIcons = document.querySelectorAll('.icon.selected');
+        if (selectedIcons.length > 0) {
+            justFinishedSelecting = true;
+        }
     }
 }
 
