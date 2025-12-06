@@ -18,22 +18,22 @@
                 <span>Resume</span>
             </div>
 
-            <!-- Operating System Project - My Computer style -->
-            <div class="icon" ondblclick="openWindow('os-window')">
-                <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png" alt="OS Project" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect fill=%22%23c0c0c0%22 x=%224%22 y=%224%22 width=%2224%22 height=%2218%22 stroke=%22%23808080%22 stroke-width=%222%22/><rect fill=%22%23000080%22 x=%226%22 y=%226%22 width=%2220%22 height=%2214%22/><rect fill=%22%23c0c0c0%22 x=%2210%22 y=%2224%22 width=%2212%22 height=%224%22/><rect fill=%22%23c0c0c0%22 x=%226%22 y=%2228%22 width=%2220%22 height=%222%22/></svg>'">
-                <span>OS Project</span>
+            <!-- Projects Folder -->
+            <div class="icon" ondblclick="openProjectsFolder()">
+                <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Projects">
+                <span>Projects</span>
             </div>
 
-            <!-- Storage Optimizer Project - Hard Drive style -->
-            <div class="icon" ondblclick="openWindow('storage-window')">
-                <img src="https://win98icons.alexmeub.com/icons/png/hard_disk_drive-3.png" alt="Storage Optimizer" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect fill=%22%23c0c0c0%22 x=%224%22 y=%226%22 width=%2224%22 height=%2220%22 rx=%222%22 stroke=%22%23808080%22/><rect fill=%22%23000080%22 x=%228%22 y=%2210%22 width=%2216%22 height=%228%22/><circle fill=%22%2300ff00%22 cx=%2224%22 cy=%2222%22 r=%222%22/></svg>'">
-                <span>Storage Optimizer</span>
+            <!-- File Explorer -->
+            <div class="icon" ondblclick="openWindow('explorer-window')">
+                <img src="https://win98icons.alexmeub.com/icons/png/directory_explorer-5.png" alt="File Explorer">
+                <span>File Explorer</span>
             </div>
 
-            <!-- Unity Game Project - Opens YouTube browser -->
-            <div class="icon" ondblclick="openWindow('app-window')">
-                <img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png" alt="Umbra_" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><ellipse fill=%22%23333%22 cx=%2216%22 cy=%2224%22 rx=%2212%22 ry=%226%22/><rect fill=%22%23666%22 x=%2214%22 y=%228%22 width=%224%22 height=%2216%22/><circle fill=%22%23ff0000%22 cx=%2216%22 cy=%228%22 r=%224%22/></svg>'">
-                <span>Umbra_</span>
+            <!-- Command Prompt -->
+            <div class="icon" ondblclick="openWindow('cmd-window')">
+                <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt="Command Prompt">
+                <span>Command Prompt</span>
             </div>
 
             <!-- GitHub -->
@@ -282,7 +282,7 @@
                 <span>Help</span>
             </div>
             <div class="explorer-toolbar">
-                <button class="explorer-toolbar-btn">
+                <button class="explorer-toolbar-btn" onclick="navigateExplorerBack()">
                     <span class="toolbar-arrow">←</span>
                     <span>Back</span>
                 </button>
@@ -301,11 +301,11 @@
             </div>
             <div class="explorer-address-bar">
                 <span>Address</span>
-                <div class="explorer-address-input">
-                    <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="" style="width: 16px; height: 16px;">
-                    <span>C:\Documents and Settings\Sid\My Documents</span>
+                <div class="explorer-address-input" id="explorer-address-input">
+                    <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="" style="width: 16px; height: 16px;" id="explorer-address-icon">
+                    <span id="explorer-address-path">C:\Documents and Settings\Sid\My Documents</span>
                 </div>
-                <button class="explorer-go-btn">Go</button>
+                <button class="explorer-go-btn" onclick="navigateExplorerBack()">Go</button>
             </div>
             <div class="explorer-content">
                 <div class="explorer-sidebar">
@@ -337,30 +337,22 @@
                             <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" alt="" style="width: 16px; height: 16px;">
                             <span>Details</span>
                         </div>
-                        <div class="explorer-task-items explorer-details">
+                        <div class="explorer-task-items explorer-details" id="explorer-details">
                             <p><strong>My Documents</strong></p>
                             <p>File Folder</p>
-                            <p>6 objects</p>
+                            <p>4 objects</p>
                         </div>
                     </div>
                 </div>
                 <div class="explorer-main">
-                    <div class="explorer-files">
+                    <div class="explorer-files" id="explorer-files">
                         <div class="explorer-file" onclick="openWindow('resume-window');">
                             <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="Resume">
                             <span>Resume.txt</span>
                         </div>
-                        <div class="explorer-file" onclick="openWindow('os-window');">
-                            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png" alt="OS Project">
-                            <span>OS Project</span>
-                        </div>
-                        <div class="explorer-file" onclick="openWindow('storage-window');">
-                            <img src="https://win98icons.alexmeub.com/icons/png/hard_disk_drive-3.png" alt="Storage Optimizer">
-                            <span>Storage Optimizer</span>
-                        </div>
-                        <div class="explorer-file" onclick="openAppWindow();">
-                            <img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png" alt="Umbra_">
-                            <span>Umbra_</span>
+                        <div class="explorer-file" ondblclick="navigateToProjects()">
+                            <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Projects">
+                            <span>Projects</span>
                         </div>
                         <div class="explorer-file" onclick="window.open('https://github.com/sidc43', '_blank')">
                             <img src="https://win98icons.alexmeub.com/icons/png/html-1.png" alt="GitHub">
@@ -374,7 +366,7 @@
                 </div>
             </div>
             <div class="explorer-statusbar">
-                <span>6 object(s)</span>
+                <span id="explorer-status">4 object(s)</span>
             </div>
         </div>
 

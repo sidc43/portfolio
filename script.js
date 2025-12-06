@@ -882,6 +882,103 @@ function processCommand(cmd, originalCmd) {
 operable program or batch file.`;
 }
 
+// Explorer Navigation State
+let explorerCurrentPath = 'documents'; // 'documents' or 'projects'
+
+// Open Projects folder (from desktop icon)
+function openProjectsFolder() {
+    openWindow('explorer-window');
+    navigateToProjects();
+}
+
+// Navigate to Projects folder in explorer
+function navigateToProjects() {
+    explorerCurrentPath = 'projects';
+    
+    // Update address bar
+    document.getElementById('explorer-address-path').textContent = 'C:\\Documents and Settings\\Sid\\My Documents\\Projects';
+    document.getElementById('explorer-address-icon').src = 'https://win98icons.alexmeub.com/icons/png/directory_open-4.png';
+    
+    // Update title bar
+    document.querySelector('#explorer-window .title-bar-text').innerHTML = `
+        <img src="https://win98icons.alexmeub.com/icons/png/directory_open-4.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+        Projects
+    `;
+    
+    // Update files
+    document.getElementById('explorer-files').innerHTML = `
+        <div class="explorer-file" onclick="openWindow('os-window');">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png" alt="OS Project">
+            <span>OS Project</span>
+        </div>
+        <div class="explorer-file" onclick="openWindow('storage-window');">
+            <img src="https://win98icons.alexmeub.com/icons/png/hard_disk_drive-3.png" alt="Storage Optimizer">
+            <span>Storage Optimizer</span>
+        </div>
+        <div class="explorer-file" onclick="openWindow('app-window');">
+            <img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png" alt="Umbra_">
+            <span>Umbra_</span>
+        </div>
+    `;
+    
+    // Update status bar
+    document.getElementById('explorer-status').textContent = '3 object(s)';
+    
+    // Update details
+    document.getElementById('explorer-details').innerHTML = `
+        <p><strong>Projects</strong></p>
+        <p>File Folder</p>
+        <p>3 objects</p>
+    `;
+}
+
+// Navigate back to My Documents
+function navigateExplorerBack() {
+    if (explorerCurrentPath === 'projects') {
+        explorerCurrentPath = 'documents';
+        
+        // Update address bar
+        document.getElementById('explorer-address-path').textContent = 'C:\\Documents and Settings\\Sid\\My Documents';
+        document.getElementById('explorer-address-icon').src = 'https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png';
+        
+        // Update title bar
+        document.querySelector('#explorer-window .title-bar-text').innerHTML = `
+            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+            My Documents
+        `;
+        
+        // Update files
+        document.getElementById('explorer-files').innerHTML = `
+            <div class="explorer-file" onclick="openWindow('resume-window');">
+                <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="Resume">
+                <span>Resume.txt</span>
+            </div>
+            <div class="explorer-file" ondblclick="navigateToProjects()">
+                <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Projects">
+                <span>Projects</span>
+            </div>
+            <div class="explorer-file" onclick="window.open('https://github.com/sidc43', '_blank')">
+                <img src="https://win98icons.alexmeub.com/icons/png/html-1.png" alt="GitHub">
+                <span>GitHub.url</span>
+            </div>
+            <div class="explorer-file" onclick="window.open('https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/', '_blank')">
+                <img src="https://win98icons.alexmeub.com/icons/png/html-1.png" alt="LinkedIn">
+                <span>LinkedIn.url</span>
+            </div>
+        `;
+        
+        // Update status bar
+        document.getElementById('explorer-status').textContent = '4 object(s)';
+        
+        // Update details
+        document.getElementById('explorer-details').innerHTML = `
+            <p><strong>My Documents</strong></p>
+            <p>File Folder</p>
+            <p>4 objects</p>
+        `;
+    }
+}
+
 // Login Screen Functions
 function showLoginScreen() {
     toggleStartMenu(); // Close the start menu
