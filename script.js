@@ -425,6 +425,156 @@ function handleUrlEnter(event) {
     }
 }
 
+// ==================== Internet Explorer Functions ====================
+let ieCurrentView = 'home'; // 'home' or 'iframe'
+
+function ieGoHome() {
+    const landing = document.getElementById('ie-landing');
+    const iframe = document.getElementById('ie-iframe');
+    const urlInput = document.getElementById('ie-url-input');
+    const titleEl = document.getElementById('ie-title');
+    
+    landing.style.display = 'flex';
+    iframe.style.display = 'none';
+    iframe.src = '';
+    urlInput.value = 'https://www.google.com';
+    titleEl.textContent = 'Google - Microsoft Internet Explorer';
+    ieCurrentView = 'home';
+    document.getElementById('ie-status').textContent = 'Done';
+}
+
+function ieGoBack() {
+    if (ieCurrentView === 'iframe') {
+        ieGoHome();
+    }
+}
+
+function ieRefresh() {
+    if (ieCurrentView === 'iframe') {
+        const iframe = document.getElementById('ie-iframe');
+        iframe.src = iframe.src;
+    }
+}
+
+function ieNavigate() {
+    const urlInput = document.getElementById('ie-url-input');
+    const url = urlInput.value.trim();
+    
+    if (!url) return;
+    
+    // If it's a Google search URL or other searchable term
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        // Treat as search query
+        iePerformSearchQuery(url);
+        return;
+    }
+    
+    // Check if it's YouTube (embeddable)
+    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+        ieLoadYouTube(url);
+        return;
+    }
+    
+    // For most sites, open in new tab (due to iframe restrictions)
+    window.open(url, '_blank');
+}
+
+function ieLoadYouTube(url) {
+    const landing = document.getElementById('ie-landing');
+    const iframe = document.getElementById('ie-iframe');
+    const titleEl = document.getElementById('ie-title');
+    
+    let embedUrl = url;
+    if (url.includes('youtube.com/watch')) {
+        const videoId = url.split('v=')[1]?.split('&')[0];
+        if (videoId) {
+            embedUrl = 'https://www.youtube.com/embed/' + videoId;
+        }
+    } else if (url.includes('youtu.be/')) {
+        const videoId = url.split('youtu.be/')[1]?.split('?')[0];
+        if (videoId) {
+            embedUrl = 'https://www.youtube.com/embed/' + videoId;
+        }
+    } else if (!url.includes('/embed/')) {
+        // Default to embed format
+        embedUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
+    }
+    
+    landing.style.display = 'none';
+    iframe.style.display = 'block';
+    iframe.src = embedUrl;
+    titleEl.textContent = 'YouTube - Microsoft Internet Explorer';
+    ieCurrentView = 'iframe';
+    document.getElementById('ie-status').textContent = 'Done';
+}
+
+function handleIEUrlEnter(event) {
+    if (event.key === 'Enter') {
+        ieNavigate();
+    }
+}
+
+function handleIESearchEnter(event) {
+    if (event.key === 'Enter') {
+        iePerformSearch();
+    }
+}
+
+function iePerformSearch() {
+    const searchInput = document.getElementById('ie-search-input');
+    const query = searchInput.value.trim();
+    
+    if (query) {
+        iePerformSearchQuery(query);
+    }
+}
+
+function iePerformSearchQuery(query) {
+    const searchUrl = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+    window.open(searchUrl, '_blank');
+    document.getElementById('ie-status').textContent = 'Opening Google Search...';
+}
+
+function ieImFeelingLucky() {
+    const searchInput = document.getElementById('ie-search-input');
+    const query = searchInput.value.trim();
+    
+    if (query) {
+        const luckyUrl = 'https://www.google.com/search?q=' + encodeURIComponent(query) + '&btnI=1';
+        window.open(luckyUrl, '_blank');
+    } else {
+        // Random fun sites
+        const funSites = [
+            'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            'https://github.com/sidc43',
+            'https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/'
+        ];
+        const randomSite = funSites[Math.floor(Math.random() * funSites.length)];
+        window.open(randomSite, '_blank');
+    }
+}
+
+function ieSearchWeb(type) {
+    const searchInput = document.getElementById('ie-search-input');
+    const query = searchInput.value.trim() || '';
+    
+    let url;
+    switch(type) {
+        case 'images':
+            url = 'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(query || 'wallpaper');
+            break;
+        case 'maps':
+            url = 'https://www.google.com/maps';
+            break;
+        case 'news':
+            url = 'https://news.google.com';
+            break;
+        default:
+            url = 'https://www.google.com';
+    }
+    window.open(url, '_blank');
+}
+
 // Window click to bring to front
 document.querySelectorAll('.window').forEach(windowEl => {
     windowEl.addEventListener('mousedown', function() {
@@ -768,19 +918,91 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Command Prompt functionality
+let cmdCurrentPath = 'C:\\Users\\Sidharth\\Desktop';
+
+// File system structure for navigation
+// Desktop contains Documents folder, Documents has Resume and Projects
+const fileSystem = {
+    'C:\\': ['Users', 'Windows', 'Program Files'],
+    'C:\\Users': ['Sidharth', 'Public'],
+    'C:\\Users\\Sidharth': ['Documents', 'Desktop', 'Downloads'],
+    'C:\\Users\\Sidharth\\Desktop': ['Documents', 'cmd.exe', 'Control Panel', 'Internet Explorer', 'Recycle Bin'],
+    'C:\\Users\\Sidharth\\Desktop\\Documents': ['Projects', 'Resume.txt'],
+    'C:\\Users\\Sidharth\\Desktop\\Documents\\Projects': ['OS', 'Storage Optimizer', 'Umbra_'],
+    'C:\\Users\\Sidharth\\Documents': ['Projects', 'Resume.txt'],
+    'C:\\Users\\Sidharth\\Documents\\Projects': ['OS', 'Storage Optimizer', 'Umbra_'],
+    'C:\\Users\\Sidharth\\Downloads': []
+};
+
+// Available commands for autocomplete
+const availableCommands = ['help', 'cls', 'dir', 'ls', 'cd', 'echo', 'about', 'skills', 'projects', 'github', 'linkedin', 'resume', 'exit'];
+
+function updateCmdPrompt() {
+    document.getElementById('cmd-prompt').textContent = cmdCurrentPath + '>';
+}
+
+// Tab autocomplete handler
+function handleCmdKeydown(event) {
+    if (event.key === 'Tab') {
+        event.preventDefault();
+        const input = document.getElementById('cmd-input');
+        const value = input.value.trim();
+        
+        // Check if it's a cd command
+        if (value.toLowerCase().startsWith('cd ')) {
+            const partial = value.substring(3);
+            const contents = fileSystem[cmdCurrentPath] || [];
+            const dirs = contents.filter(item => !item.includes('.'));
+            const matches = dirs.filter(dir => dir.toLowerCase().startsWith(partial.toLowerCase()));
+            
+            if (matches.length === 1) {
+                input.value = 'cd ' + matches[0];
+            } else if (matches.length > 1) {
+                // Show possible completions
+                const output = document.getElementById('cmd-output');
+                const cmdLine = document.createElement('div');
+                cmdLine.textContent = cmdCurrentPath + '>' + input.value;
+                output.appendChild(cmdLine);
+                const matchLine = document.createElement('div');
+                matchLine.textContent = matches.join('  ');
+                output.appendChild(matchLine);
+                output.scrollTop = output.scrollHeight;
+            }
+        } else if (!value.includes(' ')) {
+            // Autocomplete commands
+            const matches = availableCommands.filter(cmd => cmd.startsWith(value.toLowerCase()));
+            
+            if (matches.length === 1) {
+                input.value = matches[0];
+            } else if (matches.length > 1 && value.length > 0) {
+                // Show possible completions
+                const output = document.getElementById('cmd-output');
+                const cmdLine = document.createElement('div');
+                cmdLine.textContent = cmdCurrentPath + '>' + input.value;
+                output.appendChild(cmdLine);
+                const matchLine = document.createElement('div');
+                matchLine.textContent = matches.join('  ');
+                output.appendChild(matchLine);
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+    }
+}
+
 function handleCmdEnter(event) {
     if (event.key === 'Enter') {
         const input = document.getElementById('cmd-input');
         const output = document.getElementById('cmd-output');
-        const command = input.value.trim().toLowerCase();
+        const command = input.value.trim();
+        const cmdLower = command.toLowerCase();
         
         // Add the command to output
         const cmdLine = document.createElement('div');
-        cmdLine.textContent = 'C:\\SidOS\\Sidharth>' + input.value;
+        cmdLine.textContent = cmdCurrentPath + '>' + input.value;
         output.appendChild(cmdLine);
         
         // Process command
-        const result = processCommand(command, input.value);
+        const result = processCommand(cmdLower, command);
         if (result) {
             const resultLine = document.createElement('div');
             resultLine.innerHTML = result;
@@ -803,7 +1025,9 @@ function processCommand(cmd, originalCmd) {
         'help': `Available commands:
   help      - Show this help message
   cls       - Clear the screen
-  dir       - List files
+  dir       - List directory contents
+  ls        - List directory contents (alias)
+  cd        - Change directory (cd &lt;folder&gt; or cd ..)
   echo      - Display a message
   about     - About me
   skills    - My technical skills
@@ -812,34 +1036,38 @@ function processCommand(cmd, originalCmd) {
   linkedin  - Open my LinkedIn
   resume    - Open my resume
   exit      - Close command prompt`,
-        'about': `
-  Name: Sidharth Chilakamarri
+        'about': `  Name: Sidharth Chilakamarri
   Role: Computer Science Student
   Focus: Software Development, Operating Systems, Game Development`,
-        'skills': `
-  Languages: Python, Java, C#, JavaScript, C, SQL
+        'skills': `  Languages: Python, Java, C#, JavaScript, C, SQL
   Frameworks: Unity, Node.js, React
   Tools: Git, Linux, VS Code`,
-        'projects': `
-  1. Operating System - Custom x86 kernel with memory management
+        'projects': `  1. Operating System - Custom x86 kernel with memory management
   2. Storage Optimizer - Cross-platform backup solution
   3. 2D Game - Unity game with procedural generation
-  
   Type 'resume' to view full details`,
-        'dir': `
- Volume in drive C has no label.
- Directory of C:\\SidOS\\Sidharth
-
-01/01/2024  09:00 AM    <DIR>          .
-01/01/2024  09:00 AM    <DIR>          ..
-01/01/2024  09:00 AM    <DIR>          My Documents
-01/01/2024  09:00 AM             2,048 Resume.txt
-01/01/2024  09:00 AM    <DIR>          Projects
-               1 File(s)          2,048 bytes
-               4 Dir(s)   free space`,
         'cls': 'CLEAR',
         'exit': 'EXIT',
     };
+    
+    // Handle dir and ls commands
+    if (cmd === 'dir' || cmd === 'ls') {
+        return getDirListing();
+    }
+    
+    // Handle cd command
+    if (cmd === 'cd..' || cmd === 'cd ..') {
+        return changeDirectoryUp();
+    }
+    
+    if (cmd.startsWith('cd ')) {
+        const targetDir = originalCmd.substring(3).trim();
+        return changeDirectory(targetDir);
+    }
+    
+    if (cmd === 'cd') {
+        return cmdCurrentPath;
+    }
     
     if (cmd === 'cls') {
         document.getElementById('cmd-output').innerHTML = '';
@@ -882,22 +1110,192 @@ function processCommand(cmd, originalCmd) {
 operable program or batch file.`;
 }
 
-// Explorer Navigation State
-let explorerCurrentPath = 'documents'; // 'documents' or 'projects'
+function getDirListing() {
+    const contents = fileSystem[cmdCurrentPath] || [];
+    const date = '12/05/2024  10:00 AM';
+    
+    let output = `
+ Volume in drive C has no label.
+ Directory of ${cmdCurrentPath}
 
-// Open Projects folder (from desktop icon)
+${date}    &lt;DIR&gt;          .
+${date}    &lt;DIR&gt;          ..`;
+    
+    contents.forEach(item => {
+        if (item.includes('.')) {
+            // It's a file
+            output += `\n${date}             2,048 ${item}`;
+        } else {
+            // It's a directory
+            output += `\n${date}    &lt;DIR&gt;          ${item}`;
+        }
+    });
+    
+    const fileCount = contents.filter(i => i.includes('.')).length;
+    const dirCount = contents.filter(i => !i.includes('.')).length + 2; // +2 for . and ..
+    
+    output += `\n               ${fileCount} File(s)          ${fileCount * 2048} bytes`;
+    output += `\n               ${dirCount} Dir(s)   free space`;
+    
+    return output;
+}
+
+function changeDirectoryUp() {
+    if (cmdCurrentPath === 'C:\\') {
+        return 'Already at root directory';
+    }
+    
+    const parts = cmdCurrentPath.split('\\');
+    parts.pop();
+    cmdCurrentPath = parts.length === 1 ? 'C:\\' : parts.join('\\');
+    updateCmdPrompt();
+    return null;
+}
+
+function changeDirectory(targetDir) {
+    // Handle absolute paths
+    if (targetDir.match(/^[A-Za-z]:\\/)) {
+        if (fileSystem[targetDir] !== undefined) {
+            cmdCurrentPath = targetDir;
+            updateCmdPrompt();
+            return null;
+        }
+        return `The system cannot find the path specified.`;
+    }
+    
+    // Handle relative paths
+    const contents = fileSystem[cmdCurrentPath] || [];
+    const matchingDir = contents.find(item => 
+        item.toLowerCase() === targetDir.toLowerCase() && !item.includes('.')
+    );
+    
+    if (matchingDir) {
+        const newPath = cmdCurrentPath === 'C:\\' 
+            ? cmdCurrentPath + matchingDir 
+            : cmdCurrentPath + '\\' + matchingDir;
+        
+        if (fileSystem[newPath] !== undefined) {
+            cmdCurrentPath = newPath;
+            updateCmdPrompt();
+            return null;
+        }
+    }
+    
+    return `The system cannot find the path specified.`;
+}
+
+// Explorer Navigation State
+let explorerCurrentPath = 'desktop'; // 'desktop', 'documents', or 'projects'
+
+// Open Documents folder (from desktop icon)
+function openDocumentsFolder() {
+    openWindow('explorer-window');
+    navigateToDocuments();
+}
+
+// Open Projects folder (from inside Documents)
 function openProjectsFolder() {
     openWindow('explorer-window');
     navigateToProjects();
 }
 
-// Open File Explorer to My Documents (reset to default view)
+// Open File Explorer to Desktop (reset to default view)
 function openExplorerToDocuments() {
     openWindow('explorer-window');
-    // Always reset to My Documents when opening from File Explorer icon
-    if (explorerCurrentPath !== 'documents') {
-        navigateExplorerBack();
-    }
+    // Always reset to Desktop when opening from File Explorer icon
+    navigateToDesktop();
+}
+
+// Navigate to Desktop (root level)
+function navigateToDesktop() {
+    explorerCurrentPath = 'desktop';
+    
+    // Update address bar
+    document.getElementById('explorer-address-path').textContent = 'C:\\Users\\Sidharth\\Desktop';
+    document.getElementById('explorer-address-icon').src = 'https://win98icons.alexmeub.com/icons/png/desktop-2.png';
+    
+    // Update title bar
+    document.querySelector('#explorer-window .title-bar-text').innerHTML = `
+        <img src="https://win98icons.alexmeub.com/icons/png/desktop-2.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+        Desktop
+    `;
+    
+    // Update taskbar
+    updateTaskbar();
+    
+    // Update files
+    document.getElementById('explorer-files').innerHTML = `
+        <div class="explorer-file" ondblclick="navigateToDocuments()">
+            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Documents">
+            <span>Documents</span>
+        </div>
+        <div class="explorer-file" ondblclick="openWindow('cmd-window')">
+            <img src="public/commandprompt.ico" alt="Command Prompt">
+            <span>cmd.exe</span>
+        </div>
+        <div class="explorer-file" ondblclick="openWindow('control-panel-window')">
+            <img src="public/controlpanel.ico" alt="Control Panel">
+            <span>Control Panel</span>
+        </div>
+        <div class="explorer-file" ondblclick="openWindow('app-window')">
+            <img src="public/internetexplorer.ico" alt="Internet Explorer">
+            <span>Internet Explorer</span>
+        </div>
+        <div class="explorer-file">
+            <img src="public/recyclebin.ico" alt="Recycle Bin">
+            <span>Recycle Bin</span>
+        </div>
+    `;
+    
+    // Update status bar
+    document.getElementById('explorer-status').textContent = '5 object(s)';
+    
+    // Update details
+    document.getElementById('explorer-details').innerHTML = `
+        <p><strong>Desktop</strong></p>
+        <p>File Folder</p>
+        <p>5 objects</p>
+    `;
+}
+
+// Navigate to Documents folder
+function navigateToDocuments() {
+    explorerCurrentPath = 'documents';
+    
+    // Update address bar
+    document.getElementById('explorer-address-path').textContent = 'C:\\Users\\Sidharth\\Desktop\\Documents';
+    document.getElementById('explorer-address-icon').src = 'https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png';
+    
+    // Update title bar
+    document.querySelector('#explorer-window .title-bar-text').innerHTML = `
+        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+        Documents
+    `;
+    
+    // Update taskbar
+    updateTaskbar();
+    
+    // Update files
+    document.getElementById('explorer-files').innerHTML = `
+        <div class="explorer-file" ondblclick="navigateToProjects()">
+            <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Projects">
+            <span>Projects</span>
+        </div>
+        <div class="explorer-file" ondblclick="openWindow('resume-window');">
+            <img src="public/resume.ico" alt="Resume">
+            <span>Resume.txt</span>
+        </div>
+    `;
+    
+    // Update status bar
+    document.getElementById('explorer-status').textContent = '2 object(s)';
+    
+    // Update details
+    document.getElementById('explorer-details').innerHTML = `
+        <p><strong>Documents</strong></p>
+        <p>File Folder</p>
+        <p>2 objects</p>
+    `;
 }
 
 // Navigate to Projects folder in explorer
@@ -905,7 +1303,7 @@ function navigateToProjects() {
     explorerCurrentPath = 'projects';
     
     // Update address bar
-    document.getElementById('explorer-address-path').textContent = 'C:\\Documents and Settings\\Sid\\My Documents\\Projects';
+    document.getElementById('explorer-address-path').textContent = 'C:\\Users\\Sidharth\\Desktop\\Documents\\Projects';
     document.getElementById('explorer-address-icon').src = 'https://win98icons.alexmeub.com/icons/png/directory_closed-4.png';
     
     // Update title bar
@@ -927,7 +1325,7 @@ function navigateToProjects() {
             <img src="https://win98icons.alexmeub.com/icons/png/hard_disk_drive-3.png" alt="Storage Optimizer">
             <span>Storage Optimizer</span>
         </div>
-        <div class="explorer-file" ondblclick="openWindow('app-window');">
+        <div class="explorer-file" ondblclick="openWindow('game-window');">
             <img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png" alt="Umbra_">
             <span>Umbra_</span>
         </div>
@@ -944,53 +1342,12 @@ function navigateToProjects() {
     `;
 }
 
-// Navigate back to My Documents
+// Navigate back (Projects -> Documents -> Desktop)
 function navigateExplorerBack() {
     if (explorerCurrentPath === 'projects') {
-        explorerCurrentPath = 'documents';
-        
-        // Update address bar
-        document.getElementById('explorer-address-path').textContent = 'C:\\Documents and Settings\\Sid\\My Documents';
-        document.getElementById('explorer-address-icon').src = 'https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png';
-        
-        // Update title bar
-        document.querySelector('#explorer-window .title-bar-text').innerHTML = `
-            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
-            My Documents
-        `;
-        
-        // Update taskbar
-        updateTaskbar();
-        
-        // Update files
-        document.getElementById('explorer-files').innerHTML = `
-            <div class="explorer-file" ondblclick="openWindow('resume-window');">
-                <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="Resume">
-                <span>Resume.txt</span>
-            </div>
-            <div class="explorer-file" ondblclick="navigateToProjects()">
-                <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Projects">
-                <span>Projects</span>
-            </div>
-            <div class="explorer-file" ondblclick="window.open('https://github.com/sidc43', '_blank')">
-                <img src="https://win98icons.alexmeub.com/icons/png/html-1.png" alt="GitHub">
-                <span>GitHub.url</span>
-            </div>
-            <div class="explorer-file" ondblclick="window.open('https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/', '_blank')">
-                <img src="https://win98icons.alexmeub.com/icons/png/html-1.png" alt="LinkedIn">
-                <span>LinkedIn.url</span>
-            </div>
-        `;
-        
-        // Update status bar
-        document.getElementById('explorer-status').textContent = '4 object(s)';
-        
-        // Update details
-        document.getElementById('explorer-details').innerHTML = `
-            <p><strong>My Documents</strong></p>
-            <p>File Folder</p>
-            <p>4 objects</p>
-        `;
+        navigateToDocuments();
+    } else if (explorerCurrentPath === 'documents') {
+        navigateToDesktop();
     }
 }
 
@@ -1018,7 +1375,311 @@ function hideLoginScreen() {
     });
 }
 
+// Shutdown Screen Function
+function showShutdownScreen() {
+    toggleStartMenu(); // Close the start menu
+    document.getElementById('shutdown-screen').style.display = 'flex';
+    document.querySelector('.desktop').style.display = 'none';
+    document.querySelector('.taskbar').style.display = 'none';
+    
+    // Hide any open windows
+    document.querySelectorAll('.window').forEach(win => {
+        win.style.visibility = 'hidden';
+    });
+    
+    // After 2 seconds, try to close the tab or show login screen as fallback
+    setTimeout(() => {
+        window.close();
+        // If window.close() doesn't work (blocked by browser), show login screen
+        setTimeout(() => {
+            document.getElementById('shutdown-screen').style.display = 'none';
+            showLoginScreen();
+        }, 500);
+    }, 2000);
+}
+
 // Alias for backwards compatibility
 function login() {
     hideLoginScreen();
 }
+
+// ============================================
+// Control Panel Functionality
+// ============================================
+
+// Settings state]
+let siteSettings = {
+    darkMode: false,
+    soundEnabled: true,
+    soundVolume: 50,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+};
+
+// Load settings from localStorage
+function loadSettings() {
+    const saved = localStorage.getItem('siteSettings');
+    if (saved) {
+        siteSettings = { ...siteSettings, ...JSON.parse(saved) };
+        applySettings();
+    }
+}
+
+// Save settings to localStorage
+function saveSettings() {
+    localStorage.setItem('siteSettings', JSON.stringify(siteSettings));
+}
+
+// Apply current settings
+function applySettings() {
+    // Apply dark mode
+    if (siteSettings.darkMode) {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+    
+    // Update clock with timezone
+    updateClock();
+}
+
+// Initialize settings on load
+document.addEventListener('DOMContentLoaded', loadSettings);
+
+// Control Panel Navigation
+let controlPanelView = 'home'; // 'home', 'appearance', 'sounds', 'datetime'
+
+function showControlPanelHome() {
+    controlPanelView = 'home';
+    document.getElementById('control-panel-address').textContent = 'Control Panel';
+    
+    document.getElementById('control-panel-content').innerHTML = `
+        <div class="control-panel-header">
+            <h2>Pick a category</h2>
+        </div>
+        <div class="control-panel-categories" id="control-panel-categories">
+            <div class="control-panel-category" onclick="openAppearanceSettings()">
+                <img src="https://win98icons.alexmeub.com/icons/png/themes-4.png" alt="Appearance">
+                <div class="category-text">
+                    <span class="category-title">Appearance and Themes</span>
+                    <span class="category-desc">Change the computer's theme, desktop background, or screen saver</span>
+                </div>
+            </div>
+            <div class="control-panel-category" onclick="openSoundSettings()">
+                <img src="https://win98icons.alexmeub.com/icons/png/loudspeaker_rays-0.png" alt="Sounds">
+                <div class="category-text">
+                    <span class="category-title">Sounds, Speech, and Audio Devices</span>
+                    <span class="category-desc">Change the computer's sound scheme, or configure speaker settings</span>
+                </div>
+            </div>
+            <div class="control-panel-category" onclick="openDateTimeSettings()">
+                <img src="https://win98icons.alexmeub.com/icons/png/time_and_date-0.png" alt="Date Time">
+                <div class="category-text">
+                    <span class="category-title">Date, Time, Language, and Regional Options</span>
+                    <span class="category-desc">Change date, time, timezone, or language settings</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function openAppearanceSettings() {
+    controlPanelView = 'appearance';
+    document.getElementById('control-panel-address').textContent = 'Control Panel\\Appearance and Themes';
+    
+    document.getElementById('control-panel-content').innerHTML = `
+        <div class="control-panel-settings">
+            <div class="settings-header">
+                <img src="https://win98icons.alexmeub.com/icons/png/themes-4.png" alt="Appearance" style="width: 48px; height: 48px;">
+                <h2>Appearance and Themes</h2>
+            </div>
+            <div class="settings-section">
+                <h3>Pick a task...</h3>
+                <div class="settings-task" onclick="toggleDarkMode()">
+                    <img src="https://win98icons.alexmeub.com/icons/png/display_properties-0.png" alt="" style="width: 32px; height: 32px;">
+                    <span>${siteSettings.darkMode ? 'Disable Dark Mode' : 'Enable Dark Mode'}</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function openSoundSettings() {
+    controlPanelView = 'sounds';
+    document.getElementById('control-panel-address').textContent = 'Control Panel\\Sounds and Audio Devices';
+    
+    document.getElementById('control-panel-content').innerHTML = `
+        <div class="control-panel-settings">
+            <div class="settings-header">
+                <img src="https://win98icons.alexmeub.com/icons/png/loudspeaker_rays-0.png" alt="Sounds" style="width: 48px; height: 48px;">
+                <h2>Sounds, Speech, and Audio Devices</h2>
+            </div>
+            <div class="settings-section">
+                <h3>Pick a task...</h3>
+                <div class="settings-task" onclick="toggleSound()">
+                    <img src="https://win98icons.alexmeub.com/icons/png/loudspeaker_muted-0.png" alt="" style="width: 32px; height: 32px;">
+                    <span>${siteSettings.soundEnabled ? 'Mute All Sounds' : 'Unmute All Sounds'}</span>
+                </div>
+            </div>
+            <div class="settings-section">
+                <div class="volume-mixer">
+                    <div class="volume-mixer-label">Master Volume:</div>
+                    <div class="volume-mixer-track">
+                        <input type="range" id="volume-slider" class="xp-slider" min="0" max="100" value="${siteSettings.soundVolume}" oninput="updateVolume(this.value)" ${!siteSettings.soundEnabled ? 'disabled' : ''}>
+                        <span id="volume-value" class="volume-percent">${siteSettings.soundVolume}%</span>
+                    </div>
+                    <label class="mute-checkbox">
+                        <input type="checkbox" id="mute-toggle" ${!siteSettings.soundEnabled ? 'checked' : ''} onchange="toggleMute(this.checked)">
+                        <span>Mute</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function toggleMute(isMuted) {
+    siteSettings.soundEnabled = !isMuted;
+    saveSettings();
+    
+    const volumeSlider = document.getElementById('volume-slider');
+    if (volumeSlider) {
+        volumeSlider.disabled = isMuted;
+    }
+    
+    // Update the task text
+    const taskSpan = document.querySelector('.settings-task span');
+    if (taskSpan) {
+        taskSpan.textContent = siteSettings.soundEnabled ? 'Mute All Sounds' : 'Unmute All Sounds';
+    }
+}
+
+function openDateTimeSettings() {
+    controlPanelView = 'datetime';
+    document.getElementById('control-panel-address').textContent = 'Control Panel\\Date and Time';
+    
+    const timezones = [
+        'America/New_York',
+        'America/Chicago',
+        'America/Denver',
+        'America/Los_Angeles',
+        'America/Anchorage',
+        'Pacific/Honolulu',
+        'Europe/London',
+        'Europe/Paris',
+        'Europe/Berlin',
+        'Asia/Tokyo',
+        'Asia/Shanghai',
+        'Asia/Kolkata',
+        'Australia/Sydney',
+        'UTC'
+    ];
+    
+    const timezoneOptions = timezones.map(tz => 
+        `<option value="${tz}" ${siteSettings.timezone === tz ? 'selected' : ''}>${tz.replace(/_/g, ' ')}</option>`
+    ).join('');
+    
+    document.getElementById('control-panel-content').innerHTML = `
+        <div class="control-panel-settings">
+            <div class="settings-header">
+                <img src="https://win98icons.alexmeub.com/icons/png/time_and_date-0.png" alt="Date Time" style="width: 48px; height: 48px;">
+                <h2>Date, Time, Language, and Regional Options</h2>
+            </div>
+            <div class="settings-section">
+                <h3>Pick a task...</h3>
+                <div class="settings-task" onclick="document.getElementById('timezone-select').focus()">
+                    <img src="https://win98icons.alexmeub.com/icons/png/world-0.png" alt="" style="width: 32px; height: 32px;">
+                    <span>Change the time zone</span>
+                </div>
+            </div>
+            <div class="settings-section">
+                <div class="datetime-panel">
+                    <div class="datetime-group">
+                        <label class="datetime-label">Current Time:</label>
+                        <div class="datetime-display" id="settings-current-time"></div>
+                    </div>
+                    <div class="datetime-group">
+                        <label class="datetime-label">Time Zone:</label>
+                        <select id="timezone-select" class="xp-select" onchange="updateTimezone(this.value)">
+                            ${timezoneOptions}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Start updating the time display
+    updateSettingsTime();
+    setInterval(updateSettingsTime, 1000);
+}
+
+function updateSettingsTime() {
+    const timeDisplay = document.getElementById('settings-current-time');
+    if (timeDisplay) {
+        const now = new Date();
+        const options = {
+            timeZone: siteSettings.timezone,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+        timeDisplay.textContent = now.toLocaleString('en-US', options);
+    }
+}
+
+function toggleDarkMode() {
+    siteSettings.darkMode = !siteSettings.darkMode;
+    applySettings();
+    saveSettings();
+    
+    // Update the appearance settings panel if open
+    if (controlPanelView === 'appearance') {
+        openAppearanceSettings();
+    }
+}
+
+function toggleSound() {
+    siteSettings.soundEnabled = !siteSettings.soundEnabled;
+    saveSettings();
+    
+    // Update the sound settings panel if open
+    if (controlPanelView === 'sounds') {
+        openSoundSettings();
+    }
+}
+
+function updateVolume(value) {
+    siteSettings.soundVolume = parseInt(value);
+    saveSettings();
+    
+    const volumeValue = document.getElementById('volume-value');
+    if (volumeValue) {
+        volumeValue.textContent = value + '%';
+    }
+}
+
+function updateTimezone(timezone) {
+    siteSettings.timezone = timezone;
+    saveSettings();
+    updateClock();
+    updateSettingsTime();
+}
+
+// Override updateClock to use timezone setting
+const originalUpdateClock = updateClock;
+updateClock = function() {
+    const now = new Date();
+    const options = {
+        timeZone: siteSettings.timezone,
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    };
+    const timeStr = now.toLocaleString('en-US', options);
+    document.getElementById('clock').textContent = timeStr;
+};

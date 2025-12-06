@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidharth Chilakamarri - Portfolio</title>
+    <title>Sidharth Chilakamarri</title>
+    <link rel="icon" type="image/png" href="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Tahoma&display=swap" rel="stylesheet">
 </head>
@@ -12,40 +13,40 @@
     <div class="desktop">
         <!-- Desktop Icons -->
         <div class="desktop-icons">
-            <!-- Resume Icon - Notepad style -->
-            <div class="icon" ondblclick="openWindow('resume-window')">
-                <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="Resume" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect fill=%22%23ffffcc%22 x=%224%22 y=%222%22 width=%2224%22 height=%2228%22 stroke=%22%23808080%22/><rect fill=%22%230000aa%22 x=%224%22 y=%222%22 width=%2224%22 height=%225%22/><line x1=%228%22 y1=%2212%22 x2=%2224%22 y2=%2212%22 stroke=%22%23000%22/><line x1=%228%22 y1=%2216%22 x2=%2224%22 y2=%2216%22 stroke=%22%23000%22/><line x1=%228%22 y1=%2220%22 x2=%2224%22 y2=%2220%22 stroke=%22%23000%22/><line x1=%228%22 y1=%2224%22 x2=%2218%22 y2=%2224%22 stroke=%22%23000%22/></svg>'">
-                <span>Resume</span>
+            <!-- Recycle Bin -->
+            <div class="icon">
+                <img src="public/recyclebin.ico" alt="Recycle Bin">
+                <span>Recycle Bin</span>
             </div>
 
-            <!-- Projects Folder -->
-            <div class="icon" ondblclick="openProjectsFolder()">
-                <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Projects">
-                <span>Projects</span>
+            <!-- Control Panel -->
+            <div class="icon" ondblclick="openWindow('control-panel-window')">
+                <img src="public/controlpanel.ico" alt="Control Panel">
+                <span>Control Panel</span>
+            </div>
+
+            <!-- Documents Folder -->
+            <div class="icon" ondblclick="openDocumentsFolder()">
+                <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Documents">
+                <span>Documents</span>
             </div>
 
             <!-- File Explorer -->
             <div class="icon" ondblclick="openExplorerToDocuments()">
-                <img src="https://win98icons.alexmeub.com/icons/png/directory_explorer-5.png" alt="File Explorer">
+                <img src="public/fileexplorer.ico" alt="File Explorer">
                 <span>File Explorer</span>
             </div>
 
             <!-- Command Prompt -->
             <div class="icon" ondblclick="openWindow('cmd-window')">
-                <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt="Command Prompt">
+                <img src="public/commandprompt.ico" alt="Command Prompt">
                 <span>Command Prompt</span>
             </div>
 
-            <!-- GitHub -->
-            <div class="icon" ondblclick="window.open('https://github.com/sidc43', '_blank')">
-                <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><circle fill=%22%23fff%22 cx=%2216%22 cy=%2216%22 r=%2214%22/><path fill=%22%23333%22 d=%22M16 2C8.27 2 2 8.27 2 16c0 6.18 4.01 11.42 9.57 13.27.7.13.96-.3.96-.67 0-.33-.01-1.2-.02-2.36-3.9.85-4.72-1.88-4.72-1.88-.64-1.62-1.56-2.05-1.56-2.05-1.27-.87.1-.85.1-.85 1.41.1 2.15 1.45 2.15 1.45 1.25 2.14 3.28 1.52 4.08 1.16.13-.91.49-1.52.89-1.87-3.11-.35-6.38-1.56-6.38-6.93 0-1.53.55-2.78 1.44-3.76-.14-.36-.63-1.78.14-3.71 0 0 1.18-.38 3.85 1.44a13.4 13.4 0 017.02 0c2.67-1.82 3.85-1.44 3.85-1.44.77 1.93.28 3.35.14 3.71.9.98 1.44 2.23 1.44 3.76 0 5.38-3.28 6.57-6.4 6.92.5.43.95 1.29.95 2.6 0 1.88-.02 3.39-.02 3.85 0 .38.25.81.97.67C25.99 27.42 30 22.18 30 16c0-7.73-6.27-14-14-14z%22/></svg>" alt="GitHub">
-                <span>GitHub</span>
-            </div>
-
-            <!-- LinkedIn -->
-            <div class="icon" ondblclick="window.open('https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/', '_blank')">
-                <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect fill=%22%230077b5%22 x=%222%22 y=%222%22 width=%2228%22 height=%2228%22 rx=%224%22/><path fill=%22%23fff%22 d=%22M9 12h3v10H9zM10.5 7.5a1.75 1.75 0 110 3.5 1.75 1.75 0 010-3.5zM14 12h3v1.4s1-1.7 3.5-1.7c2.3 0 4 1.5 4 4.8V22h-3v-5c0-1.9-.8-2.5-2-2.5s-2.5 1-2.5 2.7V22h-3z%22/></svg>" alt="LinkedIn">
-                <span>LinkedIn</span>
+            <!-- Internet Explorer -->
+            <div class="icon" ondblclick="openWindow('app-window')">
+                <img src="public/internetexplorer.ico" alt="Internet Explorer">
+                <span>Internet Explorer</span>
             </div>
         </div>
 
@@ -134,7 +135,10 @@
             <div class="resize-handle resize-se"></div>
             <div class="resize-handle resize-sw"></div>
             <div class="title-bar" onmousedown="startDrag(event, 'os-window')">
-                <div class="title-bar-text">💻 Operating System Project</div>
+                <div class="title-bar-text">
+                    <img src="public/osproject.ico" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+                    Operating System Project
+                </div>
                 <div class="title-bar-controls">
                     <button onclick="minimizeWindow('os-window')">_</button>
                     <button onclick="maximizeWindow('os-window')">□</button>
@@ -166,7 +170,10 @@
             <div class="resize-handle resize-se"></div>
             <div class="resize-handle resize-sw"></div>
             <div class="title-bar" onmousedown="startDrag(event, 'storage-window')">
-                <div class="title-bar-text">💾 Storage Optimizer Project</div>
+                <div class="title-bar-text">
+                    <img src="public/storageoptimizationproject.ico" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+                    Storage Optimizer Project
+                </div>
                 <div class="title-bar-controls">
                     <button onclick="minimizeWindow('storage-window')">_</button>
                     <button onclick="maximizeWindow('storage-window')">□</button>
@@ -218,8 +225,8 @@
             </div>
         </div>
 
-        <!-- App Window with iframe -->
-        <div class="window" id="app-window" style="display: none; top: 30px; left: 80px; width: 900px; height: 600px;">
+        <!-- App Window with iframe (Internet Explorer) -->
+        <div class="window ie-window" id="app-window" style="display: none; top: 30px; left: 80px; width: 900px; height: 600px;">
             <div class="resize-handle resize-n"></div>
             <div class="resize-handle resize-s"></div>
             <div class="resize-handle resize-e"></div>
@@ -229,26 +236,104 @@
             <div class="resize-handle resize-se"></div>
             <div class="resize-handle resize-sw"></div>
             <div class="title-bar" onmousedown="startDrag(event, 'app-window')">
-                <div class="title-bar-text">🌐 Internet Explorer - My Apps</div>
+                <div class="title-bar-text">
+                    <img src="public/internetexplorer.ico" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+                    <span id="ie-title">Google - Microsoft Internet Explorer</span>
+                </div>
                 <div class="title-bar-controls">
                     <button onclick="minimizeWindow('app-window')">_</button>
                     <button onclick="maximizeWindow('app-window')">□</button>
                     <button onclick="closeWindow('app-window')">×</button>
                 </div>
             </div>
-            <div class="toolbar">
-                <button class="toolbar-btn" onclick="navigateBack()">◀ Back</button>
-                <button class="toolbar-btn" onclick="navigateForward()">Forward ▶</button>
-                <button class="toolbar-btn" onclick="refreshIframe()">🔄 Refresh</button>
-                <button class="toolbar-btn" onclick="goHome()">🏠 Home</button>
+            <!-- IE Menu Bar -->
+            <div class="ie-menubar">
+                <span>File</span>
+                <span>Edit</span>
+                <span>View</span>
+                <span>Favorites</span>
+                <span>Tools</span>
+                <span>Help</span>
             </div>
-            <div class="address-bar">
-                <span>Address:</span>
-                <input type="text" id="url-input" value="https://www.youtube.com" onkeypress="handleUrlEnter(event)">
-                <button onclick="navigateToUrl()">Go</button>
+            <!-- IE Toolbar -->
+            <div class="ie-toolbar">
+                <button class="ie-toolbar-btn" onclick="ieGoBack()">
+                    <span class="ie-btn-icon">←</span>
+                    <span>Back</span>
+                </button>
+                <button class="ie-toolbar-btn disabled">
+                    <span class="ie-btn-icon">→</span>
+                </button>
+                <button class="ie-toolbar-btn" onclick="ieRefresh()">
+                    <span class="ie-btn-icon">🔄</span>
+                </button>
+                <button class="ie-toolbar-btn" onclick="ieGoHome()">
+                    <span class="ie-btn-icon">🏠</span>
+                </button>
+                <div class="ie-toolbar-separator"></div>
+                <button class="ie-toolbar-btn">
+                    <span class="ie-btn-icon">🔍</span>
+                    <span>Search</span>
+                </button>
+                <button class="ie-toolbar-btn">
+                    <span class="ie-btn-icon">⭐</span>
+                    <span>Favorites</span>
+                </button>
             </div>
-            <div class="window-body iframe-container">
-                <iframe id="app-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+            <!-- IE Address Bar -->
+            <div class="ie-address-bar">
+                <span>Address</span>
+                <div class="ie-address-input-wrapper">
+                    <img src="public/internetexplorer.ico" alt="" class="ie-address-icon">
+                    <input type="text" id="ie-url-input" value="https://www.google.com" onkeypress="handleIEUrlEnter(event)">
+                </div>
+                <button class="ie-go-btn" onclick="ieNavigate()">Go</button>
+            </div>
+            <!-- IE Content Area -->
+            <div class="ie-content" id="ie-content">
+                <!-- Landing Page (Home) -->
+                <div class="ie-landing-page" id="ie-landing">
+                    <!-- Google Header Links -->
+                    <div class="ie-google-header">
+                        <a href="#" onclick="ieSearchWeb('images'); return false;">Images</a>
+                        <a href="#" onclick="ieSearchWeb('maps'); return false;">Maps</a>
+                        <a href="#" onclick="ieSearchWeb('news'); return false;">News</a>
+                        <a href="#" onclick="window.open('https://github.com/sidc43', '_blank'); return false;">GitHub</a>
+                        <a href="#" onclick="window.open('https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/', '_blank'); return false;">LinkedIn</a>
+                    </div>
+                    <!-- Google Logo (Classic) -->
+                    <div class="ie-google-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Google_logo_%282010-2013%29.svg/2560px-Google_logo_%282010-2013%29.svg.png" alt="Google">
+                    </div>
+                    <!-- Search Box -->
+                    <div class="ie-search-box">
+                        <input type="text" id="ie-search-input" placeholder="" onkeypress="handleIESearchEnter(event)">
+                    </div>
+                    <div class="ie-search-buttons">
+                        <button onclick="iePerformSearch()">Google Search</button>
+                        <button onclick="ieImFeelingLucky()">I'm Feeling Lucky</button>
+                    </div>
+                    <!-- Quick Links / Shortcuts -->
+                    <div class="ie-shortcuts">
+                        <a href="#" class="ie-shortcut" onclick="window.open('https://github.com/sidc43', '_blank'); return false;">
+                            <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><circle fill=%22%23fff%22 cx=%2216%22 cy=%2216%22 r=%2214%22/><path fill=%22%23333%22 d=%22M16 2C8.27 2 2 8.27 2 16c0 6.18 4.01 11.42 9.57 13.27.7.13.96-.3.96-.67 0-.33-.01-1.2-.02-2.36-3.9.85-4.72-1.88-4.72-1.88-.64-1.62-1.56-2.05-1.56-2.05-1.27-.87.1-.85.1-.85 1.41.1 2.15 1.45 2.15 1.45 1.25 2.14 3.28 1.52 4.08 1.16.13-.91.49-1.52.89-1.87-3.11-.35-6.38-1.56-6.38-6.93 0-1.53.55-2.78 1.44-3.76-.14-.36-.63-1.78.14-3.71 0 0 1.18-.38 3.85 1.44a13.4 13.4 0 017.02 0c2.67-1.82 3.85-1.44 3.85-1.44.77 1.93.28 3.35.14 3.71.9.98 1.44 2.23 1.44 3.76 0 5.38-3.28 6.57-6.4 6.92.5.43.95 1.29.95 2.6 0 1.88-.02 3.39-.02 3.85 0 .38.25.81.97.67C25.99 27.42 30 22.18 30 16c0-7.73-6.27-14-14-14z%22/></svg>" alt="GitHub">
+                            <span>GitHub</span>
+                        </a>
+                        <a href="#" class="ie-shortcut" onclick="window.open('https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/', '_blank'); return false;">
+                            <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect fill=%22%230077b5%22 x=%222%22 y=%222%22 width=%2228%22 height=%2228%22 rx=%224%22/><path fill=%22%23fff%22 d=%22M9 12h3v10H9zM10.5 7.5a1.75 1.75 0 110 3.5 1.75 1.75 0 010-3.5zM14 12h3v1.4s1-1.7 3.5-1.7c2.3 0 4 1.5 4 4.8V22h-3v-5c0-1.9-.8-2.5-2-2.5s-2.5 1-2.5 2.7V22h-3z%22/></svg>" alt="LinkedIn">
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Iframe for external sites -->
+                <iframe id="ie-iframe" src="" frameborder="0" style="display: none;"></iframe>
+            </div>
+            <!-- IE Status Bar -->
+            <div class="ie-status-bar">
+                <span id="ie-status">Done</span>
+                <span class="ie-status-right">
+                    <span>🌐 Internet</span>
+                </span>
             </div>
         </div>
 
@@ -264,8 +349,8 @@
             <div class="resize-handle resize-sw"></div>
             <div class="title-bar" onmousedown="startDrag(event, 'explorer-window')">
                 <div class="title-bar-text">
-                    <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
-                    My Documents
+                    <img src="https://win98icons.alexmeub.com/icons/png/desktop-2.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+                    Desktop
                 </div>
                 <div class="title-bar-controls">
                     <button onclick="minimizeWindow('explorer-window')">_</button>
@@ -302,8 +387,8 @@
             <div class="explorer-address-bar">
                 <span>Address</span>
                 <div class="explorer-address-input" id="explorer-address-input">
-                    <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="" style="width: 16px; height: 16px;" id="explorer-address-icon">
-                    <span id="explorer-address-path">C:\Documents and Settings\Sid\My Documents</span>
+                    <img src="https://win98icons.alexmeub.com/icons/png/desktop-2.png" alt="" style="width: 16px; height: 16px;" id="explorer-address-icon">
+                    <span id="explorer-address-path">C:\Users\Sidharth\Desktop</span>
                 </div>
                 <button class="explorer-go-btn" onclick="navigateExplorerBack()">Go</button>
             </div>
@@ -338,40 +423,44 @@
                             <span>Details</span>
                         </div>
                         <div class="explorer-task-items explorer-details" id="explorer-details">
-                            <p><strong>My Documents</strong></p>
+                            <p><strong>Desktop</strong></p>
                             <p>File Folder</p>
-                            <p>4 objects</p>
+                            <p>5 objects</p>
                         </div>
                     </div>
                 </div>
                 <div class="explorer-main">
                     <div class="explorer-files" id="explorer-files">
-                        <div class="explorer-file" ondblclick="openWindow('resume-window');">
-                            <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="Resume">
-                            <span>Resume.txt</span>
+                        <div class="explorer-file" ondblclick="navigateToDocuments()">
+                            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Documents">
+                            <span>Documents</span>
                         </div>
-                        <div class="explorer-file" ondblclick="navigateToProjects()">
-                            <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Projects">
-                            <span>Projects</span>
+                        <div class="explorer-file" ondblclick="openWindow('cmd-window')">
+                            <img src="public/commandprompt.ico" alt="Command Prompt">
+                            <span>cmd.exe</span>
                         </div>
-                        <div class="explorer-file" ondblclick="window.open('https://github.com/sidc43', '_blank')">
-                            <img src="https://win98icons.alexmeub.com/icons/png/html-1.png" alt="GitHub">
-                            <span>GitHub.url</span>
+                        <div class="explorer-file" ondblclick="openWindow('control-panel-window')">
+                            <img src="public/controlpanel.ico" alt="Control Panel">
+                            <span>Control Panel</span>
                         </div>
-                        <div class="explorer-file" ondblclick="window.open('https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/', '_blank')">
-                            <img src="https://win98icons.alexmeub.com/icons/png/html-1.png" alt="LinkedIn">
-                            <span>LinkedIn.url</span>
+                        <div class="explorer-file" ondblclick="openWindow('app-window')">
+                            <img src="public/internetexplorer.ico" alt="Internet Explorer">
+                            <span>Internet Explorer</span>
+                        </div>
+                        <div class="explorer-file">
+                            <img src="public/recyclebin.ico" alt="Recycle Bin">
+                            <span>Recycle Bin</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="explorer-statusbar">
-                <span id="explorer-status">4 object(s)</span>
+                <span id="explorer-status">5 object(s)</span>
             </div>
         </div>
 
         <!-- Command Prompt Window -->
-        <div class="window cmd-window" id="cmd-window" style="display: none; top: 80px; left: 150px; width: 680px; height: 400px;">
+        <div class="window cmd-window" id="cmd-window" style="display: none; top: 50px; left: 100px; width: 750px; height: 480px;">
             <div class="resize-handle resize-n"></div>
             <div class="resize-handle resize-s"></div>
             <div class="resize-handle resize-e"></div>
@@ -382,7 +471,7 @@
             <div class="resize-handle resize-sw"></div>
             <div class="title-bar cmd-title-bar" onmousedown="startDrag(event, 'cmd-window')">
                 <div class="title-bar-text">
-                    <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+                    <img src="public/commandprompt.ico" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
                     C:\SidOS\system32\cmd.exe
                 </div>
                 <div class="title-bar-controls">
@@ -396,25 +485,123 @@
                     <div>SidOS [Version 1.0.2025]</div>
                     <div>(C) Copyright 2025 Sidharth Chilakamarri. All rights reserved.</div>
                     <div>&nbsp;</div>
-                    <div>C:\SidOS\Sidharth&gt;help</div>
-                    <div>Available commands:</div>
-                    <div>  help      - Show this help message</div>
-                    <div>  cls       - Clear the screen</div>
-                    <div>  dir       - List files</div>
-                    <div>  echo      - Display a message</div>
-                    <div>  about     - About me</div>
-                    <div>  skills    - My technical skills</div>
-                    <div>  projects  - View my projects</div>
-                    <div>  github    - Open my GitHub</div>
-                    <div>  linkedin  - Open my LinkedIn</div>
-                    <div>  resume    - Open my resume</div>
-                    <div>  exit      - Close command prompt</div>
-                    <div>&nbsp;</div>
+                    <div>Type 'help' for a list of available commands.</div>
                 </div>
                 <div class="cmd-input-line">
-                    <span class="cmd-prompt">C:\SidOS\Sidharth&gt;</span>
-                    <input type="text" class="cmd-input" id="cmd-input" onkeypress="handleCmdEnter(event)" autofocus>
+                    <span class="cmd-prompt" id="cmd-prompt">C:\Users\Sidharth\Desktop&gt;</span>
+                    <input type="text" class="cmd-input" id="cmd-input" onkeypress="handleCmdEnter(event)" onkeydown="handleCmdKeydown(event)" autofocus>
                 </div>
+            </div>
+        </div>
+
+        <!-- Control Panel Window -->
+        <div class="window control-panel-window" id="control-panel-window" style="display: none; top: 50px; left: 100px; width: 750px; height: 500px;">
+            <div class="resize-handle resize-n"></div>
+            <div class="resize-handle resize-s"></div>
+            <div class="resize-handle resize-e"></div>
+            <div class="resize-handle resize-w"></div>
+            <div class="resize-handle resize-ne"></div>
+            <div class="resize-handle resize-nw"></div>
+            <div class="resize-handle resize-se"></div>
+            <div class="resize-handle resize-sw"></div>
+            <div class="title-bar" onmousedown="startDrag(event, 'control-panel-window')">
+                <div class="title-bar-text">
+                    <img src="public/controlpanel.ico" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+                    Control Panel
+                </div>
+                <div class="title-bar-controls">
+                    <button onclick="minimizeWindow('control-panel-window')">_</button>
+                    <button onclick="maximizeWindow('control-panel-window')">□</button>
+                    <button onclick="closeWindow('control-panel-window')">×</button>
+                </div>
+            </div>
+            <div class="explorer-menubar">
+                <span>File</span>
+                <span>Edit</span>
+                <span>View</span>
+                <span>Favorites</span>
+                <span>Tools</span>
+                <span>Help</span>
+            </div>
+            <div class="explorer-toolbar">
+                <button class="explorer-toolbar-btn" onclick="showControlPanelHome()">
+                    <span class="toolbar-arrow">←</span>
+                    <span>Back</span>
+                </button>
+                <button class="explorer-toolbar-btn">
+                    <span class="toolbar-arrow">→</span>
+                </button>
+                <div class="explorer-toolbar-divider"></div>
+                <button class="explorer-toolbar-btn">
+                    <img src="https://win98icons.alexmeub.com/icons/png/search_web-0.png" alt="Search" style="width: 20px; height: 20px;">
+                    <span>Search</span>
+                </button>
+                <button class="explorer-toolbar-btn">
+                    <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Folders" style="width: 20px; height: 20px;">
+                    <span>Folders</span>
+                </button>
+            </div>
+            <div class="explorer-address-bar">
+                <span>Address</span>
+                <div class="explorer-address-input">
+                    <img src="public/controlpanel.ico" alt="" style="width: 16px; height: 16px;">
+                    <span id="control-panel-address">Control Panel</span>
+                </div>
+                <button class="explorer-go-btn">Go</button>
+            </div>
+            <div class="explorer-content">
+                <div class="explorer-sidebar control-panel-sidebar">
+                    <div class="explorer-task-group">
+                        <div class="explorer-task-header">
+                            <img src="public/controlpanel.ico" alt="" style="width: 16px; height: 16px;">
+                            <span>Control Panel</span>
+                        </div>
+                        <div class="explorer-task-items">
+                            <div class="explorer-task-item" onclick="showControlPanelHome()">Switch to Classic View</div>
+                        </div>
+                    </div>
+                    <div class="explorer-task-group">
+                        <div class="explorer-task-header">
+                            <img src="https://win98icons.alexmeub.com/icons/png/msagent-4.png" alt="" style="width: 16px; height: 16px;">
+                            <span>See Also</span>
+                        </div>
+                        <div class="explorer-task-items">
+                            <div class="explorer-task-item">Windows Update</div>
+                            <div class="explorer-task-item">Help and Support</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explorer-main control-panel-main" id="control-panel-content">
+                    <div class="control-panel-header">
+                        <h2>Pick a category</h2>
+                    </div>
+                    <div class="control-panel-categories" id="control-panel-categories">
+                        <div class="control-panel-category" onclick="openAppearanceSettings()">
+                            <img src="https://win98icons.alexmeub.com/icons/png/themes-4.png" alt="Appearance">
+                            <div class="category-text">
+                                <span class="category-title">Appearance and Themes</span>
+                                <span class="category-desc">Change the computer's theme, desktop background, or screen saver</span>
+                            </div>
+                        </div>
+                        <div class="control-panel-category" onclick="openSoundSettings()">
+                            <img src="https://win98icons.alexmeub.com/icons/png/loudspeaker_rays-0.png" alt="Sounds">
+                            <div class="category-text">
+                                <span class="category-title">Sounds, Speech, and Audio Devices</span>
+                                <span class="category-desc">Change the computer's sound scheme, or configure speaker settings</span>
+                            </div>
+                        </div>
+                        <div class="control-panel-category" onclick="openDateTimeSettings()">
+                            <img src="https://win98icons.alexmeub.com/icons/png/time_and_date-0.png" alt="Date Time">
+                            <div class="category-text">
+                                <span class="category-title">Date, Time, Language, and Regional Options</span>
+                                <span class="category-desc">Change date, time, timezone, or language settings</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="explorer-statusbar">
+                <span>3 object(s)</span>
             </div>
         </div>
     </div>
@@ -428,11 +615,11 @@
         <div class="taskbar-divider"></div>
         <div class="quick-launch">
             <button class="quick-launch-btn" onclick="openExplorerToDocuments()" title="File Explorer">
-                <img src="https://win98icons.alexmeub.com/icons/png/directory_explorer-5.png" alt="File Explorer" style="width: 18px; height: 18px;">
+                <img src="public/fileexplorer.ico" alt="File Explorer" style="width: 18px; height: 18px;">
                 <span>File Explorer</span>
             </button>
             <button class="quick-launch-btn" onclick="openWindow('cmd-window')" title="Command Prompt">
-                <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt="CMD" style="width: 18px; height: 18px;">
+                <img src="public/commandprompt.ico" alt="CMD" style="width: 18px; height: 18px;">
                 <span>Command Prompt</span>
             </button>
         </div>
@@ -493,21 +680,21 @@
         <div class="start-menu-items">
             <div class="start-menu-left">
                 <div class="start-menu-item pinned" onclick="openWindow('resume-window'); toggleStartMenu();">
-                    <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="">
+                    <img src="public/resume.ico" alt="">
                     <div class="item-text">
                         <span class="item-title">Resume</span>
                         <span class="item-desc">View my resume</span>
                     </div>
                 </div>
                 <div class="start-menu-item pinned" onclick="openWindow('os-window'); toggleStartMenu();">
-                    <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png" alt="">
+                    <img src="public/osproject.ico" alt="">
                     <div class="item-text">
                         <span class="item-title">OS Project</span>
                         <span class="item-desc">Operating System</span>
                     </div>
                 </div>
                 <div class="start-menu-item pinned" onclick="openWindow('storage-window'); toggleStartMenu();">
-                    <img src="https://win98icons.alexmeub.com/icons/png/hard_disk_drive-3.png" alt="">
+                    <img src="public/storageoptimizationproject.ico" alt="">
                     <div class="item-text">
                         <span class="item-title">Storage Optimizer</span>
                         <span class="item-desc">Backup Planner</span>
@@ -527,11 +714,11 @@
                 </div>
             </div>
             <div class="start-menu-right" id="start-menu-right" onmouseenter="keepAllProgramsOpen()" onmouseleave="hideAllPrograms()">
-                <div class="start-menu-item right-item" onclick="window.open('https://github.com/sidc43', '_blank'); toggleStartMenu();">
+                <div class="start-menu-item right-item" onclick="openGitHubWindow(); toggleStartMenu();">
                     <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><circle fill=%22%23fff%22 cx=%2216%22 cy=%2216%22 r=%2214%22/><path fill=%22%23333%22 d=%22M16 2C8.27 2 2 8.27 2 16c0 6.18 4.01 11.42 9.57 13.27.7.13.96-.3.96-.67 0-.33-.01-1.2-.02-2.36-3.9.85-4.72-1.88-4.72-1.88-.64-1.62-1.56-2.05-1.56-2.05-1.27-.87.1-.85.1-.85 1.41.1 2.15 1.45 2.15 1.45 1.25 2.14 3.28 1.52 4.08 1.16.13-.91.49-1.52.89-1.87-3.11-.35-6.38-1.56-6.38-6.93 0-1.53.55-2.78 1.44-3.76-.14-.36-.63-1.78.14-3.71 0 0 1.18-.38 3.85 1.44a13.4 13.4 0 017.02 0c2.67-1.82 3.85-1.44 3.85-1.44.77 1.93.28 3.35.14 3.71.9.98 1.44 2.23 1.44 3.76 0 5.38-3.28 6.57-6.4 6.92.5.43.95 1.29.95 2.6 0 1.88-.02 3.39-.02 3.85 0 .38.25.81.97.67C25.99 27.42 30 22.18 30 16c0-7.73-6.27-14-14-14z%22/></svg>" alt="">
                     <span>GitHub</span>
                 </div>
-                <div class="start-menu-item right-item" onclick="window.open('https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/', '_blank'); toggleStartMenu();">
+                <div class="start-menu-item right-item" onclick="openLinkedInWindow(); toggleStartMenu();">
                     <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect fill=%22%230077b5%22 x=%222%22 y=%222%22 width=%2228%22 height=%2228%22 rx=%224%22/><path fill=%22%23fff%22 d=%22M9 12h3v10H9zM10.5 7.5a1.75 1.75 0 110 3.5 1.75 1.75 0 010-3.5zM14 12h3v1.4s1-1.7 3.5-1.7c2.3 0 4 1.5 4 4.8V22h-3v-5c0-1.9-.8-2.5-2-2.5s-2.5 1-2.5 2.7V22h-3z%22/></svg>" alt="">
                     <span>LinkedIn</span>
                 </div>
@@ -542,18 +729,18 @@
                 </div>
                 <hr class="start-menu-separator">
                 <div class="start-menu-item right-item" onclick="openWindow('cmd-window'); toggleStartMenu();">
-                    <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt="">
+                    <img src="public/commandprompt.ico" alt="">
                     <span>Command Prompt</span>
                 </div>
             </div>
         </div>
         <div class="start-menu-footer">
             <button class="footer-btn" onclick="showLoginScreen();">
-                <img src="https://win98icons.alexmeub.com/icons/png/key_win-2.png" alt="">
+                <img src="public/logout.ico" alt="">
                 Log Off
             </button>
-            <button class="footer-btn shutdown" onclick="showLoginScreen();">
-                <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-4.png" alt="">
+            <button class="footer-btn shutdown" onclick="showShutdownScreen()">
+                <img src="public/shutdown.ico" alt="">
                 Shut Down
             </button>
         </div>
@@ -570,7 +757,7 @@
             <span>Open My Documents</span>
         </div>
         <div class="context-menu-item" onclick="openWindow('resume-window'); hideContextMenu();">
-            <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="">
+            <img src="public/resume.ico" alt="">
             <span>View Resume</span>
         </div>
         <hr class="context-menu-separator">
@@ -594,7 +781,7 @@
         </div>
         <hr class="context-menu-separator">
         <div class="context-menu-item" onclick="openWindow('cmd-window'); hideContextMenu();">
-            <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt="">
+            <img src="public/commandprompt.ico" alt="">
             <span>Command Prompt</span>
         </div>
     </div>
@@ -613,6 +800,19 @@
         <hr class="context-menu-separator">
         <div class="context-menu-item" onclick="closeTaskbarWindow()">
             <span>Close</span>
+        </div>
+    </div>
+
+    <!-- Shutdown Screen -->
+    <div class="shutdown-screen" id="shutdown-screen">
+        <div class="shutdown-content">
+            <div class="shutdown-logo">
+                <img src="public/windows_xp_logo_by_mohamadouwindowsxp10_df4yf6z-fullview.png" alt="Windows XP">
+            </div>
+            <div class="shutdown-title">
+                <span class="shutdown-name">Microsoft</span><sup class="shutdown-xp">XP</sup>
+            </div>
+            <div class="shutdown-message">Thanks for visiting...</div>
         </div>
     </div>
 

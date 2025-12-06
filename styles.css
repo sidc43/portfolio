@@ -87,6 +87,23 @@ body {
     filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
 }
 
+/* Shortcut arrow overlay for link icons */
+.icon.shortcut {
+    position: relative;
+}
+
+.icon.shortcut::after {
+    content: '';
+    position: absolute;
+    bottom: 22px;
+    left: 8px;
+    width: 12px;
+    height: 12px;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="%23000" d="M0 6v10h10V6H0zm8 8H2V8h6v6z"/><path fill="%23fff" d="M1 7v8h8V7H1zm6 6H3V9h4v4z"/><path fill="%23000" d="M4 0v4h2V2h6v6h-2v2h4V0H4z"/><path fill="%23fff" d="M5 1v2h2V1h6v6h-2v2h-1V8h2V2H6v1H5z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 .icon span {
     color: white;
     text-align: center;
@@ -387,6 +404,275 @@ body {
     width: 100%;
     height: 100%;
     border: none;
+}
+
+/* ==================== Internet Explorer Styles ==================== */
+.ie-window {
+    display: flex;
+    flex-direction: column;
+}
+
+.ie-menubar {
+    display: flex;
+    gap: 0;
+    background: #ece9d8;
+    padding: 2px 4px;
+    font-size: 11px;
+    border-bottom: 1px solid #aaa;
+}
+
+.ie-menubar span {
+    padding: 2px 8px;
+    cursor: pointer;
+}
+
+.ie-menubar span:hover {
+    background: #316ac5;
+    color: white;
+}
+
+.ie-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: linear-gradient(180deg, #f5f4f0 0%, #e3e3db 100%);
+    padding: 4px 6px;
+    border-bottom: 1px solid #919b9c;
+}
+
+.ie-toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 3px 6px;
+    cursor: pointer;
+    font-size: 11px;
+    color: #000;
+}
+
+.ie-toolbar-btn:hover:not(.disabled) {
+    background: linear-gradient(180deg, #fff 0%, #e3e0d4 100%);
+    border-color: #c8d0d4 #6a6a64 #6a6a64 #c8d0d4;
+}
+
+.ie-toolbar-btn:active:not(.disabled) {
+    background: linear-gradient(180deg, #e3e0d4 0%, #fff 100%);
+}
+
+.ie-toolbar-btn.disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.ie-btn-icon {
+    font-size: 14px;
+}
+
+.ie-toolbar-separator {
+    width: 1px;
+    height: 20px;
+    background: linear-gradient(180deg, #fff 0%, #a0a097 50%, #fff 100%);
+    margin: 0 4px;
+}
+
+.ie-address-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(180deg, #eae8df 0%, #d5d2c7 100%);
+    padding: 3px 6px;
+    font-size: 11px;
+    border-bottom: 1px solid #919b9c;
+}
+
+.ie-address-bar > span {
+    color: #000;
+    font-weight: normal;
+}
+
+.ie-address-input-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #7f9db9;
+    padding: 1px 3px;
+}
+
+.ie-address-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+
+.ie-address-input-wrapper input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    padding: 2px;
+}
+
+.ie-go-btn {
+    background: linear-gradient(180deg, #f5f4f0 0%, #d9d8d2 100%);
+    border: 1px solid #8e8f8a;
+    border-radius: 2px;
+    padding: 2px 12px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.ie-go-btn:hover {
+    background: linear-gradient(180deg, #fff 0%, #e3e0d4 100%);
+}
+
+.ie-go-btn:active {
+    background: linear-gradient(180deg, #d9d8d2 0%, #f5f4f0 100%);
+}
+
+.ie-content {
+    flex: 1;
+    background: #fff;
+    overflow: auto;
+    position: relative;
+}
+
+.ie-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.ie-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ece9d8;
+    border-top: 1px solid #fff;
+    padding: 2px 8px;
+    font-size: 11px;
+    color: #000;
+}
+
+.ie-status-right {
+    display: flex;
+    gap: 12px;
+}
+
+/* IE Landing Page - Google Style */
+.ie-landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    background: #fff;
+    min-height: 100%;
+}
+
+.ie-google-header {
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    display: flex;
+    gap: 15px;
+    font-size: 13px;
+}
+
+.ie-google-header a {
+    color: #0000cc;
+    text-decoration: underline;
+}
+
+.ie-google-header a:hover {
+    color: #cc0000;
+}
+
+.ie-google-logo {
+    margin-bottom: 20px;
+}
+
+.ie-google-logo img {
+    height: 80px;
+    width: auto;
+}
+
+.ie-search-box {
+    margin-bottom: 15px;
+}
+
+.ie-search-box input {
+    width: 400px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #aaa;
+    border-radius: 0;
+    outline: none;
+}
+
+.ie-search-box input:focus {
+    border-color: #4d90fe;
+}
+
+.ie-search-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.ie-search-buttons button {
+    background: #f2f2f2;
+    border: 1px solid #f2f2f2;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #5f6368;
+    cursor: pointer;
+}
+
+.ie-search-buttons button:hover {
+    border-color: #c6c6c6;
+    background: #f8f8f8;
+}
+
+.ie-shortcuts {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.ie-shortcut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #000;
+    padding: 15px 20px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.ie-shortcut:hover {
+    background: #f1f3f4;
+}
+
+.ie-shortcut img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.ie-shortcut span {
+    font-size: 13px;
+    color: #3c4043;
 }
 
 /* Taskbar - XP Luna Blue */
@@ -1820,4 +2106,738 @@ body {
     color: rgba(255,255,255,0.8);
     font-size: 12px;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+/* Shutdown Screen */
+.shutdown-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #5a7edc;
+    z-index: 10001;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Trebuchet MS', 'Franklin Gothic Medium', Arial, sans-serif;
+}
+
+.shutdown-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.shutdown-logo img {
+    width: 80px;
+    height: 80px;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.shutdown-title {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.shutdown-name {
+    font-size: 42px;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    letter-spacing: -1px;
+}
+
+.shutdown-xp {
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    margin-left: 2px;
+    margin-top: 8px;
+    color: #ff8c00;
+}
+
+.shutdown-message {
+    color: white;
+    font-size: 24px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+/* ============================================
+   Control Panel Styles
+   ============================================ */
+
+.control-panel-window .explorer-main {
+    background: linear-gradient(180deg, #7ba3d6 0%, #5a80b4 100%);
+}
+
+.control-panel-header {
+    padding: 20px 30px;
+}
+
+.control-panel-header h2 {
+    color: white;
+    font-size: 22px;
+    font-weight: normal;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    margin: 0;
+}
+
+.control-panel-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 30px 30px;
+}
+
+.control-panel-category {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.control-panel-category:hover {
+    background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 100%);
+}
+
+.control-panel-category img {
+    width: 48px;
+    height: 48px;
+}
+
+.category-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.category-title {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.category-desc {
+    color: rgba(255,255,255,0.85);
+    font-size: 11px;
+}
+
+/* Control Panel Settings Pages */
+.control-panel-settings {
+    padding: 20px 30px;
+}
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+.settings-header h2 {
+    color: white;
+    font-size: 18px;
+    font-weight: normal;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    margin: 0;
+}
+
+.settings-section {
+    margin-bottom: 24px;
+}
+
+.settings-section h3 {
+    color: white;
+    font-size: 13px;
+    font-weight: normal;
+    margin: 0 0 12px 0;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.settings-task {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    max-width: 300px;
+}
+
+.settings-task:hover {
+    background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 100%);
+}
+
+.settings-task span {
+    color: white;
+    font-size: 12px;
+}
+
+.settings-options {
+    background: rgba(255,255,255,0.9);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.settings-option {
+    margin-bottom: 16px;
+}
+
+.settings-option:last-child {
+    margin-bottom: 0;
+}
+
+.settings-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.settings-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.settings-checkbox span {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+}
+
+.settings-label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 8px;
+}
+
+.settings-description {
+    font-size: 11px;
+    color: #666;
+    margin: 6px 0 0 0;
+}
+
+.settings-select {
+    width: 100%;
+    max-width: 300px;
+    padding: 6px 10px;
+    font-size: 12px;
+    border: 1px solid #7f9db9;
+    border-radius: 3px;
+    background: white;
+}
+
+/* XP-style Volume Mixer */
+.volume-mixer {
+    background: #ece9d8;
+    border: 1px solid #919b9c;
+    border-radius: 0;
+    padding: 16px 20px;
+    display: inline-block;
+}
+
+.volume-mixer-label {
+    font-size: 12px;
+    color: #000;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.volume-mixer-track {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.xp-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 180px;
+    height: 20px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.xp-slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(180deg, #808080 0%, #c0c0c0 50%, #dfdfdf 100%);
+    border: 1px solid #808080;
+    border-radius: 0;
+}
+
+.xp-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 20px;
+    background: linear-gradient(180deg, #fff 0%, #ece9d8 30%, #c0c0c0 100%);
+    border: 1px solid #808080;
+    border-radius: 0;
+    margin-top: -9px;
+    cursor: pointer;
+    box-shadow: inset 1px 1px 0 #fff;
+}
+
+.xp-slider::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(180deg, #808080 0%, #c0c0c0 50%, #dfdfdf 100%);
+    border: 1px solid #808080;
+    border-radius: 0;
+}
+
+.xp-slider::-moz-range-thumb {
+    width: 10px;
+    height: 20px;
+    background: linear-gradient(180deg, #fff 0%, #ece9d8 30%, #c0c0c0 100%);
+    border: 1px solid #808080;
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.xp-slider:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xp-slider:disabled::-webkit-slider-thumb {
+    cursor: not-allowed;
+}
+
+.xp-slider:disabled::-moz-range-thumb {
+    cursor: not-allowed;
+}
+
+.volume-percent {
+    font-size: 12px;
+    color: #000;
+    min-width: 40px;
+}
+
+.mute-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #000;
+    cursor: pointer;
+}
+
+.mute-checkbox input[type="checkbox"] {
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+}
+
+/* XP-style Date/Time Panel */
+.datetime-panel {
+    background: #ece9d8;
+    border: 1px solid #919b9c;
+    padding: 16px 20px;
+    display: inline-block;
+}
+
+.datetime-group {
+    margin-bottom: 16px;
+}
+
+.datetime-group:last-child {
+    margin-bottom: 0;
+}
+
+.datetime-label {
+    display: block;
+    font-size: 12px;
+    color: #000;
+    margin-bottom: 6px;
+}
+
+.datetime-display {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+    padding: 6px 10px;
+    background: #fff;
+    border: 2px inset #919b9c;
+    font-family: 'Tahoma', sans-serif;
+}
+
+/* XP-style Select/Dropdown */
+.xp-select {
+    width: 100%;
+    max-width: 280px;
+    padding: 4px 6px;
+    font-size: 12px;
+    font-family: 'Tahoma', sans-serif;
+    color: #000;
+    background: #fff;
+    border: 2px inset #919b9c;
+    cursor: pointer;
+    outline: none;
+}
+
+.xp-select:focus {
+    border-color: #0054e3;
+}
+
+.xp-select option {
+    padding: 2px 4px;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background: #1a1a2e;
+}
+
+body.dark-mode .desktop {
+    background: url('https://dn721808.ca.archive.org/0/items/windows-xp-dark-2/Windows%20XP%20Dark%20Theme%20Background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+body.dark-mode .taskbar {
+    background: linear-gradient(180deg, #2d2d44 0%, #1a1a2e 50%, #0d0d15 100%);
+}
+
+body.dark-mode .start-menu {
+    background: linear-gradient(180deg, #2d2d44 0%, #1a1a2e 100%);
+}
+
+body.dark-mode .start-menu-header {
+    background: linear-gradient(180deg, #3d3d5c 0%, #2d2d44 100%);
+}
+
+body.dark-mode .start-menu-left {
+    background: #1a1a2e;
+}
+
+body.dark-mode .start-menu-right {
+    background: #252540;
+}
+
+body.dark-mode .window {
+    background: #2d2d44;
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .title-bar {
+    background: linear-gradient(180deg, #4a4a6a 0%, #3d3d5c 10%, #2d2d44 90%, #1a1a2e 100%);
+}
+
+body.dark-mode .title-bar.active,
+body.dark-mode .window.active .title-bar {
+    background: linear-gradient(180deg, #5a5a8a 0%, #4a4a6a 10%, #3d3d5c 90%, #2d2d44 100%);
+}
+
+body.dark-mode .window-body {
+    background: #1a1a2e;
+    color: #e0e0e0;
+}
+
+/* Explorer menubar, toolbar, address bar in dark mode */
+body.dark-mode .explorer-menubar {
+    background: #252540;
+    color: #e0e0e0;
+}
+
+body.dark-mode .explorer-toolbar {
+    background: linear-gradient(180deg, #3a3a55 0%, #2d2d44 100%);
+}
+
+body.dark-mode .explorer-toolbar-btn {
+    color: #e0e0e0;
+}
+
+body.dark-mode .explorer-toolbar-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+body.dark-mode .explorer-address-bar {
+    background: #252540;
+    color: #e0e0e0;
+}
+
+body.dark-mode .explorer-address-input {
+    background: #1a1a2e;
+    border-color: #3d3d5c;
+    color: #e0e0e0;
+}
+
+body.dark-mode .explorer-address-input span {
+    color: #e0e0e0;
+}
+
+body.dark-mode .explorer-go-btn {
+    background: linear-gradient(180deg, #3a3a55 0%, #2d2d44 100%);
+    color: #e0e0e0;
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .explorer-go-btn:hover {
+    background: linear-gradient(180deg, #4a4a6a 0%, #3d3d5c 100%);
+}
+
+body.dark-mode .explorer-statusbar {
+    background: #252540;
+    color: #e0e0e0;
+}
+
+body.dark-mode .explorer-sidebar {
+    background: linear-gradient(180deg, #3d3d5c 0%, #2d2d44 100%);
+}
+
+body.dark-mode .explorer-main {
+    background: #1a1a2e;
+}
+
+body.dark-mode .explorer-file:hover {
+    background: #3d3d5c;
+    border-color: #5a5a8a;
+}
+
+body.dark-mode .explorer-file span {
+    color: #e0e0e0;
+}
+
+body.dark-mode .explorer-task-group {
+    background: #2d2d44;
+}
+
+body.dark-mode .explorer-task-header {
+    background: #3d3d5c;
+    color: #8ab4f8;
+}
+
+body.dark-mode .explorer-task-items {
+    background: #252540;
+}
+
+body.dark-mode .explorer-task-item {
+    color: #8ab4f8;
+}
+
+body.dark-mode .explorer-details p {
+    color: #e0e0e0;
+}
+
+body.dark-mode .cmd-body {
+    background: #0c0c0c;
+}
+
+body.dark-mode .resume-content {
+    color: #e0e0e0;
+}
+
+body.dark-mode .resume-content h1,
+body.dark-mode .resume-content h2 {
+    color: #8ab4f8;
+}
+
+/* Control Panel dark mode */
+body.dark-mode .control-panel-main {
+    background: linear-gradient(180deg, #3d3d5c 0%, #2d2d44 100%);
+}
+
+/* Volume mixer dark mode */
+body.dark-mode .volume-mixer {
+    background: #2d2d44;
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .volume-mixer-label {
+    color: #e0e0e0;
+}
+
+body.dark-mode .volume-percent {
+    color: #e0e0e0;
+}
+
+body.dark-mode .mute-checkbox {
+    color: #e0e0e0;
+}
+
+body.dark-mode .xp-slider::-webkit-slider-runnable-track {
+    background: linear-gradient(180deg, #1a1a2e 0%, #3d3d5c 50%, #4a4a6a 100%);
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .xp-slider::-webkit-slider-thumb {
+    background: linear-gradient(180deg, #5a5a8a 0%, #4a4a6a 30%, #3d3d5c 100%);
+    border-color: #5a5a8a;
+}
+
+body.dark-mode .xp-slider::-moz-range-track {
+    background: linear-gradient(180deg, #1a1a2e 0%, #3d3d5c 50%, #4a4a6a 100%);
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .xp-slider::-moz-range-thumb {
+    background: linear-gradient(180deg, #5a5a8a 0%, #4a4a6a 30%, #3d3d5c 100%);
+    border-color: #5a5a8a;
+}
+
+/* Date/Time panel dark mode */
+body.dark-mode .datetime-panel {
+    background: #2d2d44;
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .datetime-label {
+    color: #e0e0e0;
+}
+
+body.dark-mode .datetime-display {
+    background: #1a1a2e;
+    border-color: #3d3d5c;
+    color: #e0e0e0;
+}
+
+body.dark-mode .xp-select {
+    background: #1a1a2e;
+    border-color: #3d3d5c;
+    color: #e0e0e0;
+}
+
+body.dark-mode .xp-select:focus {
+    border-color: #8ab4f8;
+}
+
+body.dark-mode .xp-select option {
+    background: #1a1a2e;
+    color: #e0e0e0;
+}
+
+/* Internet Explorer dark mode */
+body.dark-mode .ie-menubar {
+    background: #2d2d44;
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .ie-menubar span {
+    color: #e0e0e0;
+}
+
+body.dark-mode .ie-menubar span:hover {
+    background: #5a5a8a;
+}
+
+body.dark-mode .ie-toolbar {
+    background: linear-gradient(180deg, #3d3d5c 0%, #2d2d44 100%);
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .ie-toolbar-btn {
+    color: #e0e0e0;
+}
+
+body.dark-mode .ie-toolbar-btn:hover:not(.disabled) {
+    background: linear-gradient(180deg, #4a4a6a 0%, #3d3d5c 100%);
+    border-color: #5a5a8a;
+}
+
+body.dark-mode .ie-toolbar-separator {
+    background: linear-gradient(180deg, #3d3d5c 0%, #5a5a8a 50%, #3d3d5c 100%);
+}
+
+body.dark-mode .ie-address-bar {
+    background: linear-gradient(180deg, #3d3d5c 0%, #2d2d44 100%);
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .ie-address-bar > span {
+    color: #e0e0e0;
+}
+
+body.dark-mode .ie-address-input-wrapper {
+    background: #1a1a2e;
+    border-color: #5a5a8a;
+}
+
+body.dark-mode .ie-address-input-wrapper input {
+    background: #1a1a2e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .ie-go-btn {
+    background: linear-gradient(180deg, #3d3d5c 0%, #2d2d44 100%);
+    border-color: #5a5a8a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .ie-go-btn:hover {
+    background: linear-gradient(180deg, #4a4a6a 0%, #3d3d5c 100%);
+}
+
+body.dark-mode .ie-content {
+    background: #1a1a2e;
+}
+
+body.dark-mode .ie-landing-page {
+    background: #1a1a2e;
+}
+
+body.dark-mode .ie-google-header a {
+    color: #8ab4f8;
+}
+
+body.dark-mode .ie-google-header a:hover {
+    color: #f28b82;
+}
+
+body.dark-mode .ie-search-box input {
+    background: #2d2d44;
+    border-color: #5a5a8a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .ie-search-box input:focus {
+    border-color: #8ab4f8;
+}
+
+body.dark-mode .ie-search-buttons button {
+    background: #2d2d44;
+    border-color: #3d3d5c;
+    color: #e0e0e0;
+}
+
+body.dark-mode .ie-search-buttons button:hover {
+    background: #3d3d5c;
+    border-color: #5a5a8a;
+}
+
+body.dark-mode .ie-shortcut:hover {
+    background: #2d2d44;
+}
+
+body.dark-mode .ie-shortcut span {
+    color: #e0e0e0;
+}
+
+body.dark-mode .ie-status-bar {
+    background: #2d2d44;
+    border-color: #3d3d5c;
+    color: #e0e0e0;
 }
