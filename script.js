@@ -891,17 +891,26 @@ function openProjectsFolder() {
     navigateToProjects();
 }
 
+// Open File Explorer to My Documents (reset to default view)
+function openExplorerToDocuments() {
+    openWindow('explorer-window');
+    // Always reset to My Documents when opening from File Explorer icon
+    if (explorerCurrentPath !== 'documents') {
+        navigateExplorerBack();
+    }
+}
+
 // Navigate to Projects folder in explorer
 function navigateToProjects() {
     explorerCurrentPath = 'projects';
     
     // Update address bar
     document.getElementById('explorer-address-path').textContent = 'C:\\Documents and Settings\\Sid\\My Documents\\Projects';
-    document.getElementById('explorer-address-icon').src = 'https://win98icons.alexmeub.com/icons/png/directory_open-4.png';
+    document.getElementById('explorer-address-icon').src = 'https://win98icons.alexmeub.com/icons/png/directory_closed-4.png';
     
     // Update title bar
     document.querySelector('#explorer-window .title-bar-text').innerHTML = `
-        <img src="https://win98icons.alexmeub.com/icons/png/directory_open-4.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+        <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
         Projects
     `;
     
