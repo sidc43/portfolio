@@ -914,6 +914,9 @@ function navigateToProjects() {
         Projects
     `;
     
+    // Update taskbar
+    updateTaskbar();
+    
     // Update files
     document.getElementById('explorer-files').innerHTML = `
         <div class="explorer-file" ondblclick="openWindow('os-window');">
@@ -955,6 +958,9 @@ function navigateExplorerBack() {
             <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
             My Documents
         `;
+        
+        // Update taskbar
+        updateTaskbar();
         
         // Update files
         document.getElementById('explorer-files').innerHTML = `
