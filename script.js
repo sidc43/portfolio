@@ -907,15 +907,15 @@ function navigateToProjects() {
     
     // Update files
     document.getElementById('explorer-files').innerHTML = `
-        <div class="explorer-file" onclick="openWindow('os-window');">
+        <div class="explorer-file" ondblclick="openWindow('os-window');">
             <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png" alt="OS Project">
             <span>OS Project</span>
         </div>
-        <div class="explorer-file" onclick="openWindow('storage-window');">
+        <div class="explorer-file" ondblclick="openWindow('storage-window');">
             <img src="https://win98icons.alexmeub.com/icons/png/hard_disk_drive-3.png" alt="Storage Optimizer">
             <span>Storage Optimizer</span>
         </div>
-        <div class="explorer-file" onclick="openWindow('app-window');">
+        <div class="explorer-file" ondblclick="openWindow('app-window');">
             <img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png" alt="Umbra_">
             <span>Umbra_</span>
         </div>
@@ -949,7 +949,7 @@ function navigateExplorerBack() {
         
         // Update files
         document.getElementById('explorer-files').innerHTML = `
-            <div class="explorer-file" onclick="openWindow('resume-window');">
+            <div class="explorer-file" ondblclick="openWindow('resume-window');">
                 <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="Resume">
                 <span>Resume.txt</span>
             </div>
@@ -957,11 +957,11 @@ function navigateExplorerBack() {
                 <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" alt="Projects">
                 <span>Projects</span>
             </div>
-            <div class="explorer-file" onclick="window.open('https://github.com/sidc43', '_blank')">
+            <div class="explorer-file" ondblclick="window.open('https://github.com/sidc43', '_blank')">
                 <img src="https://win98icons.alexmeub.com/icons/png/html-1.png" alt="GitHub">
                 <span>GitHub.url</span>
             </div>
-            <div class="explorer-file" onclick="window.open('https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/', '_blank')">
+            <div class="explorer-file" ondblclick="window.open('https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/', '_blank')">
                 <img src="https://win98icons.alexmeub.com/icons/png/html-1.png" alt="LinkedIn">
                 <span>LinkedIn.url</span>
             </div>
