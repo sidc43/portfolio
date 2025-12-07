@@ -26,6 +26,7 @@ body {
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
+    display: none;
 }
 
 /* Fallback gradient if image doesn't load */
@@ -200,23 +201,20 @@ body {
 
 /* Minimize button - blue */
 .title-bar-controls button:nth-child(1) {
-    background: linear-gradient(180deg, #3C8CF4 0%, #1665D8 50%, #0B4AB9 100%);
-    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3), 
-                inset -1px -1px 0 rgba(0, 0, 0, 0.2);
+    background-image: url('public/minimize.ico');
+    background-size: contain;
 }
 
 /* Maximize button - blue */
 .title-bar-controls button:nth-child(2) {
-    background: linear-gradient(180deg, #3C8CF4 0%, #1665D8 50%, #0B4AB9 100%);
-    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3), 
-                inset -1px -1px 0 rgba(0, 0, 0, 0.2);
+    background-image: url('public/maximize.ico');
+    background-size: contain;
 }
 
 /* Close button - red */
 .title-bar-controls button:nth-child(3) {
-    background: linear-gradient(180deg, #E97778 0%, #C72F2E 50%, #B11B1A 100%);
-    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3), 
-                inset -1px -1px 0 rgba(0, 0, 0, 0.2);
+    background-image: url('public/close.ico');
+    background-size: contain;
 }
 
 .title-bar-controls button:hover {
@@ -429,6 +427,88 @@ body {
 .ie-menubar span:hover {
     background: #316ac5;
     color: white;
+}
+
+/* Window Menu Dropdown System */
+.window-menubar {
+    position: relative;
+}
+
+.window-menubar .menu-item {
+    position: relative;
+    display: inline-block;
+}
+
+.window-menubar .menu-item > span {
+    padding: 2px 8px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.window-menubar .menu-item > span:hover,
+.window-menubar .menu-item.active > span {
+    background: #316ac5;
+    color: white;
+}
+
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #808080;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 160px;
+    z-index: 10000;
+    padding: 2px 0;
+}
+
+.menu-item.active .menu-dropdown {
+    display: block;
+}
+
+.menu-dropdown-item {
+    padding: 4px 24px 4px 24px;
+    cursor: pointer;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.menu-dropdown-item:hover:not(.disabled) {
+    background: #316ac5;
+    color: white;
+}
+
+.menu-dropdown-item.disabled {
+    color: #808080;
+    cursor: default;
+}
+
+.menu-separator {
+    border: none;
+    border-top: 1px solid #d4d0c8;
+    margin: 3px 2px;
+}
+
+/* Notepad Menu Bar */
+.notepad-menubar {
+    display: flex;
+    gap: 0;
+    background: #ece9d8;
+    padding: 2px 4px;
+    font-size: 11px;
+    border-bottom: 1px solid #aaa;
+}
+
+/* Project Window Menu Bar */
+.project-menubar {
+    display: flex;
+    gap: 0;
+    background: #ece9d8;
+    padding: 2px 4px;
+    font-size: 11px;
+    border-bottom: 1px solid #aaa;
 }
 
 .ie-toolbar {
@@ -683,48 +763,52 @@ body {
     right: 0;
     height: 30px;
     background: linear-gradient(180deg, 
-        #1C5DB5 0%,
-        #245ED7 3%,
-        #3C8CF4 6%,
-        #3170E0 50%,
-        #245ED7 95%,
-        #1C5DB5 100%);
-    display: flex;
+        #245EDC 0%,
+        #3F8CF3 2%,
+        #1A5BC9 8%,
+        #1350B8 25%,
+        #0F44A0 50%,
+        #1350B8 75%,
+        #1A5BC9 92%,
+        #3F8CF3 98%,
+        #245EDC 100%);
+    display: none;
     align-items: center;
     padding: 0;
     z-index: 1000;
-    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3);
+    border-top: 1px solid #0C3B8C;
+    box-shadow: inset 0 1px 0 rgba(120, 180, 255, 0.5);
 }
 
 /* Start Button - XP Style */
 .start-button {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
     background: linear-gradient(180deg, 
-        #5cb85c 0%,
-        #4cae4c 2%,
-        #6fd26f 8%,
-        #4bb84b 18%,
-        #3fa73f 92%,
-        #3c993c 100%);
+        #3d9e3d 0%,
+        #358f35 2%,
+        #4db84d 8%,
+        #3a9a3a 18%,
+        #2d8a2d 92%,
+        #287828 100%);
     border: none;
-    border-radius: 0 10px 10px 0;
-    padding: 2px 15px 2px 3px;
+    border-radius: 0 8px 8px 0;
+    padding: 0 18px 0 4px;
     cursor: pointer;
-    font-family: 'Franklin Gothic Medium', 'Trebuchet MS', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Franklin Gothic Medium', Arial, sans-serif;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 15px;
     font-style: italic;
     height: 30px;
     color: white;
-    text-shadow: 0 1px 1px rgba(0, 80, 0, 0.8);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-                1px 0 3px rgba(0, 0, 0, 0.3);
-    letter-spacing: 0px;
+    text-shadow: 1px 1px 1px rgba(0, 60, 0, 0.9);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    letter-spacing: 0.5px;
     position: relative;
     overflow: hidden;
+    margin-left: -1px;
 }
 
 .start-button::before {
@@ -734,35 +818,35 @@ body {
     left: 0;
     right: 0;
     height: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%);
-    border-radius: 0 10px 0 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 100%);
+    border-radius: 0 8px 0 0;
 }
 
 .start-button:hover {
     background: linear-gradient(180deg, 
-        #6fcf6f 0%,
-        #5cbf5c 2%,
-        #82e282 8%,
-        #60c960 18%,
-        #50b850 92%,
-        #48a848 100%);
+        #4db04d 0%,
+        #40a040 2%,
+        #5cc85c 8%,
+        #48a848 18%,
+        #3a9a3a 92%,
+        #328832 100%);
 }
 
 .start-button:active,
 .start-button.active {
     background: linear-gradient(180deg, 
-        #3a903a 0%,
-        #348f34 2%,
-        #4aa64a 8%,
-        #3a963a 18%,
-        #2f852f 92%,
-        #2a7a2a 100%);
+        #2d7a2d 0%,
+        #287028 2%,
+        #3a8a3a 8%,
+        #2d7d2d 18%,
+        #246824 92%,
+        #1f5f1f 100%);
     box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.3);
 }
 
 .start-button img {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
     position: relative;
     z-index: 1;
@@ -771,9 +855,9 @@ body {
 /* Taskbar Divider - XP Style */
 .taskbar-divider {
     width: 2px;
-    height: 20px;
-    background: linear-gradient(180deg, transparent 0%, #1C5DB5 30%, #5BA0F2 50%, #1C5DB5 70%, transparent 100%);
-    margin: 0 4px;
+    height: 22px;
+    background: linear-gradient(180deg, transparent 0%, #0A246A 20%, #5BA0F2 50%, #0A246A 80%, transparent 100%);
+    margin: 0 6px 0 8px;
 }
 
 /* Taskbar Programs - Quick Launch & Windows */
@@ -787,12 +871,12 @@ body {
 
 .taskbar-program {
     background: linear-gradient(180deg, 
-        #3C8CF4 0%,
-        #2778E4 50%,
-        #1665D8 100%);
+        #3C88D4 0%,
+        #2068C4 50%,
+        #1555B0 100%);
     border: none;
-    border-radius: 3px;
-    padding: 3px 12px;
+    border-radius: 2px;
+    padding: 3px 10px;
     font-size: 11px;
     cursor: pointer;
     max-width: 160px;
@@ -803,59 +887,64 @@ body {
     display: block;
     line-height: 16px;
     color: white;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.2),
-                inset -1px -1px 0 rgba(0, 0, 0, 0.1);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.15),
+                inset -1px -1px 0 rgba(0, 0, 0, 0.15),
+                0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 .taskbar-program:hover {
     background: linear-gradient(180deg, 
-        #5BA0F2 0%,
-        #4090EC 50%,
-        #2778E4 100%);
+        #4A98E4 0%,
+        #3078D4 50%,
+        #2068C4 100%);
 }
 
 .taskbar-program:active,
 .taskbar-program.active {
     background: linear-gradient(180deg, 
-        #1665D8 0%,
-        #0B4AB9 50%,
+        #1048A0 0%,
+        #0A3878 50%,
         #0A246A 100%);
-    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 /* System Tray - XP Style */
 .system-tray {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     background: linear-gradient(180deg, 
-        #0F8AEE 0%,
-        #0978D4 50%,
-        #0864B9 100%);
-    padding: 0 12px;
-    height: 30px;
+        #0E8EEE 0%,
+        #19A3F1 8%,
+        #18A4F1 40%,
+        #0E94EC 70%,
+        #0B80D3 100%);
+    padding: 0 10px;
+    height: 32px;
     margin-left: auto;
-    border-left: 1px solid #0A5BAD;
+    border-left: 1px solid #0864B9;
+    box-shadow: inset 1px 0 0 rgba(120, 200, 255, 0.4);
 }
 
 .tray-icons {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-right: 10px;
-    padding-right: 10px;
-    border-right: 1px solid rgba(255,255,255,0.2);
+    gap: 8px;
+    margin-right: 8px;
+    padding-right: 8px;
+    border-right: 1px solid rgba(0, 80, 160, 0.3);
+    box-shadow: 1px 0 0 rgba(120, 200, 255, 0.2);
 }
 
 .tray-icon {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     cursor: default;
 }
 
 .battery-icon {
-    width: 22px;
+    width: 16px;
 }
 
 #clock {
@@ -1203,7 +1292,7 @@ body {
 .info-balloon {
     position: fixed;
     bottom: 48px;
-    right: 150px;
+    right: 130px;
     width: 270px;
     background: #ffffe1;
     border: 1px solid #000;
@@ -2082,7 +2171,7 @@ body {
     height: 100%;
     background: linear-gradient(135deg, #1e4e9c 0%, #2a5dab 25%, #3d7cc9 50%, #2a5dab 75%, #1e4e9c 100%);
     z-index: 10000;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Trebuchet MS', 'Franklin Gothic Medium', Arial, sans-serif;
@@ -2677,6 +2766,15 @@ body.dark-mode .explorer-menubar {
     color: #e0e0e0;
 }
 
+body.dark-mode .explorer-menubar .menu-item > span {
+    color: #e0e0e0;
+}
+
+body.dark-mode .explorer-menubar .menu-item > span:hover,
+body.dark-mode .explorer-menubar .menu-item.active > span {
+    background: #5a5a8a;
+}
+
 body.dark-mode .explorer-toolbar {
     background: linear-gradient(180deg, #3a3a55 0%, #2d2d44 100%);
 }
@@ -2850,11 +2948,54 @@ body.dark-mode .ie-menubar {
     border-color: #3d3d5c;
 }
 
-body.dark-mode .ie-menubar span {
+body.dark-mode .ie-menubar span,
+body.dark-mode .ie-menubar .menu-item > span {
     color: #e0e0e0;
 }
 
-body.dark-mode .ie-menubar span:hover {
+body.dark-mode .ie-menubar span:hover,
+body.dark-mode .ie-menubar .menu-item > span:hover,
+body.dark-mode .ie-menubar .menu-item.active > span {
+    background: #5a5a8a;
+}
+
+/* Dark mode for menu dropdowns */
+body.dark-mode .menu-dropdown {
+    background: #2d2d44;
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .menu-dropdown-item {
+    color: #e0e0e0;
+}
+
+body.dark-mode .menu-dropdown-item:hover:not(.disabled) {
+    background: #5a5a8a;
+}
+
+body.dark-mode .menu-dropdown-item.disabled {
+    color: #666;
+}
+
+body.dark-mode .menu-separator {
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .notepad-menubar,
+body.dark-mode .project-menubar {
+    background: #2d2d44;
+    border-color: #3d3d5c;
+}
+
+body.dark-mode .notepad-menubar .menu-item > span,
+body.dark-mode .project-menubar .menu-item > span {
+    color: #e0e0e0;
+}
+
+body.dark-mode .notepad-menubar .menu-item > span:hover,
+body.dark-mode .notepad-menubar .menu-item.active > span,
+body.dark-mode .project-menubar .menu-item > span:hover,
+body.dark-mode .project-menubar .menu-item.active > span {
     background: #5a5a8a;
 }
 

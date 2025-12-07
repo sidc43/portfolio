@@ -37,10 +37,10 @@ function preloadSounds() {
     });
 }
 
-// Play sound effect
+// Play sound effect (uses preloaded cache for instant playback)
 function playSound(soundName) {
-    // Check if sounds are enabled
-    if (typeof siteSettings !== 'undefined' && !siteSettings.soundEnabled) {
+    // Check if sounds are enabled and volume > 0
+    if (typeof siteSettings !== 'undefined' && (!siteSettings.soundEnabled || siteSettings.soundVolume === 0)) {
         return;
     }
     
@@ -48,19 +48,25 @@ function playSound(soundName) {
     if (!url) return;
     
     try {
-        const audio = new Audio(url);
+        // Use cached audio if available, clone it for overlapping sounds
+        let audio;
+        if (audioCache[soundName]) {
+            audio = audioCache[soundName].cloneNode();
+        } else {
+            audio = new Audio(url);
+        }
+        
         // Apply volume from settings
-        if (typeof siteSettings !== 'undefined') {
+        if (typeof siteSettings !== 'undefined' && siteSettings.soundVolume > 0) {
             audio.volume = siteSettings.soundVolume / 100;
         } else {
             audio.volume = 0.5;
         }
         audio.play().catch(e => {
             // Ignore autoplay errors - user hasn't interacted yet
-            console.log('Sound play blocked:', e.message);
         });
     } catch (e) {
-        console.log('Sound error:', e);
+        // Silent fail
     }
 }
 
@@ -87,7 +93,16 @@ document.addEventListener('DOMContentLoaded', function() {
         if (infoBalloon && !infoBalloon.contains(e.target) && !infoIcon.contains(e.target)) {
             infoBalloon.style.display = 'none';
         }
+        
+        // Close window menu dropdowns when clicking outside
+        const menuItem = e.target.closest('.menu-item');
+        if (!menuItem) {
+            closeAllMenuDropdowns();
+        }
     });
+    
+    // Initialize window menu dropdowns
+    initWindowMenus();
     
     // Add click listener to desktop to deselect icons
     document.querySelector('.desktop').addEventListener('click', function(e) {
@@ -115,11 +130,62 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize icon selection
     initIconSelection();
     
-    // Play app-open sound on any button click (except minimize)
+    // Play app-open sound on clickable elements
     document.addEventListener('click', function(e) {
-        const button = e.target.closest('button');
+        const target = e.target;
+        
+        // Check for buttons (except minimize and title bar controls)
+        const button = target.closest('button');
         if (button && !button.classList.contains('minimize-btn') && !button.closest('.title-bar-controls')) {
             playSound('appOpen');
+            return;
+        }
+        
+        // Check for control panel categories
+        const controlPanelCategory = target.closest('.control-panel-category');
+        if (controlPanelCategory) {
+            playSound('appOpen');
+            return;
+        }
+        
+        // Check for explorer sidebar links
+        const sidebarLink = target.closest('.explorer-task-link');
+        if (sidebarLink) {
+            playSound('appOpen');
+            return;
+        }
+        
+        // Check for theme/wallpaper options in settings
+        const themeOption = target.closest('.theme-option, .wallpaper-option');
+        if (themeOption) {
+            playSound('appOpen');
+            return;
+        }
+        
+        // Check for start menu items
+        const startMenuItem = target.closest('.start-menu-item');
+        if (startMenuItem) {
+            playSound('appOpen');
+            return;
+        }
+    });
+    
+    // Play app-open sound on double-click for icons and explorer files
+    document.addEventListener('dblclick', function(e) {
+        const target = e.target;
+        
+        // Check for desktop icons
+        const icon = target.closest('.icon');
+        if (icon) {
+            playSound('appOpen');
+            return;
+        }
+        
+        // Check for explorer files
+        const explorerFile = target.closest('.explorer-file');
+        if (explorerFile) {
+            playSound('appOpen');
+            return;
         }
     });
 });
@@ -692,13 +758,11 @@ function closeInfoBalloon() {
 
 // Show info balloon on first visit after login
 function showInfoBalloonOnLogin() {
-    setTimeout(() => {
-        const balloon = document.getElementById('info-balloon');
-        if (balloon) {
-            balloon.style.display = 'block';
-            playSound('notify'); // Play notify sound when balloon appears
-        }
-    }, 500);
+    const balloon = document.getElementById('info-balloon');
+    if (balloon) {
+        balloon.style.display = 'block';
+        playSound('notify'); // Play notify sound when balloon appears
+    }
 }
 
 // Calendar functionality
@@ -1290,6 +1354,8 @@ function changeDirectory(targetDir) {
 
 // Explorer Navigation State
 let explorerCurrentPath = 'desktop'; // 'desktop', 'documents', or 'projects'
+let explorerHistory = ['desktop']; // History stack for back navigation
+let explorerHistoryIndex = 0; // Current position in history
 
 // Open Documents folder (from desktop icon)
 function openDocumentsFolder() {
@@ -1306,13 +1372,24 @@ function openProjectsFolder() {
 // Open File Explorer to Desktop (reset to default view)
 function openExplorerToDocuments() {
     openWindow('explorer-window');
+    // Reset history when opening fresh
+    explorerHistory = ['desktop'];
+    explorerHistoryIndex = 0;
     // Always reset to Desktop when opening from File Explorer icon
-    navigateToDesktop();
+    navigateToDesktop(false); // Don't add to history since we just reset it
 }
 
 // Navigate to Desktop (root level)
-function navigateToDesktop() {
+function navigateToDesktop(addToHistory = true) {
     explorerCurrentPath = 'desktop';
+    
+    // Add to history if not navigating via back/forward
+    if (addToHistory) {
+        // Remove any forward history when navigating to new location
+        explorerHistory = explorerHistory.slice(0, explorerHistoryIndex + 1);
+        explorerHistory.push('desktop');
+        explorerHistoryIndex = explorerHistory.length - 1;
+    }
     
     // Update address bar
     document.getElementById('explorer-address-path').textContent = 'C:\\Users\\Sidharth\\Desktop';
@@ -1363,8 +1440,16 @@ function navigateToDesktop() {
 }
 
 // Navigate to Documents folder
-function navigateToDocuments() {
+function navigateToDocuments(addToHistory = true) {
     explorerCurrentPath = 'documents';
+    
+    // Add to history if not navigating via back/forward
+    if (addToHistory) {
+        // Remove any forward history when navigating to new location
+        explorerHistory = explorerHistory.slice(0, explorerHistoryIndex + 1);
+        explorerHistory.push('documents');
+        explorerHistoryIndex = explorerHistory.length - 1;
+    }
     
     // Update address bar
     document.getElementById('explorer-address-path').textContent = 'C:\\Users\\Sidharth\\Desktop\\Documents';
@@ -1403,8 +1488,16 @@ function navigateToDocuments() {
 }
 
 // Navigate to Projects folder in explorer
-function navigateToProjects() {
+function navigateToProjects(addToHistory = true) {
     explorerCurrentPath = 'projects';
+    
+    // Add to history if not navigating via back/forward
+    if (addToHistory) {
+        // Remove any forward history when navigating to new location
+        explorerHistory = explorerHistory.slice(0, explorerHistoryIndex + 1);
+        explorerHistory.push('projects');
+        explorerHistoryIndex = explorerHistory.length - 1;
+    }
     
     // Update address bar
     document.getElementById('explorer-address-path').textContent = 'C:\\Users\\Sidharth\\Desktop\\Documents\\Projects';
@@ -1446,12 +1539,36 @@ function navigateToProjects() {
     `;
 }
 
-// Navigate back (Projects -> Documents -> Desktop)
+// Navigate back in explorer history
 function navigateExplorerBack() {
-    if (explorerCurrentPath === 'projects') {
-        navigateToDocuments();
-    } else if (explorerCurrentPath === 'documents') {
-        navigateToDesktop();
+    if (explorerHistoryIndex > 0) {
+        explorerHistoryIndex--;
+        const destination = explorerHistory[explorerHistoryIndex];
+        navigateToPath(destination, false);
+    }
+}
+
+// Navigate forward in explorer history
+function navigateExplorerForward() {
+    if (explorerHistoryIndex < explorerHistory.length - 1) {
+        explorerHistoryIndex++;
+        const destination = explorerHistory[explorerHistoryIndex];
+        navigateToPath(destination, false);
+    }
+}
+
+// Helper to navigate to a specific path
+function navigateToPath(path, addToHistory = true) {
+    switch (path) {
+        case 'desktop':
+            navigateToDesktop(addToHistory);
+            break;
+        case 'documents':
+            navigateToDocuments(addToHistory);
+            break;
+        case 'projects':
+            navigateToProjects(addToHistory);
+            break;
     }
 }
 
@@ -1469,18 +1586,57 @@ function showLoginScreen() {
 }
 
 function hideLoginScreen() {
+    console.log('hideLoginScreen called');
     document.getElementById('login-screen').style.display = 'none';
     document.querySelector('.desktop').style.display = 'grid';
     document.querySelector('.taskbar').style.display = 'flex';
-    playSound('startup'); // Play Windows XP startup sound
+    console.log('About to play startup sound, siteSettings:', siteSettings);
+    
+    // Play Windows XP startup sound and show balloon after it finishes
+    playStartupSoundThenBalloon();
     
     // Restore window visibility
     document.querySelectorAll('.window').forEach(win => {
         win.style.visibility = 'visible';
     });
+}
+
+// Play startup sound and show info balloon shortly after
+function playStartupSoundThenBalloon() {
+    // Check if sounds are enabled and volume > 0
+    if (typeof siteSettings !== 'undefined' && (!siteSettings.soundEnabled || siteSettings.soundVolume === 0)) {
+        // No sound, show balloon immediately
+        showInfoBalloonOnLogin();
+        return;
+    }
     
-    // Show info balloon after a brief delay
-    showInfoBalloonOnLogin();
+    const url = xpSounds['startup'];
+    if (!url) {
+        showInfoBalloonOnLogin();
+        return;
+    }
+    
+    try {
+        const audio = new Audio(url);
+        if (typeof siteSettings !== 'undefined' && siteSettings.soundVolume > 0) {
+            audio.volume = siteSettings.soundVolume / 100;
+        } else {
+            audio.volume = 0.5;
+        }
+        
+        // Show balloon shortly after sound starts (not waiting for it to end)
+        audio.play().then(() => {
+            // Sound started, show balloon after brief moment
+            setTimeout(() => {
+                showInfoBalloonOnLogin();
+            }, 2900);
+        }).catch(e => {
+            // If autoplay blocked, show balloon immediately
+            showInfoBalloonOnLogin();
+        });
+    } catch (e) {
+        showInfoBalloonOnLogin();
+    }
 }
 
 // Shutdown Screen Function
@@ -1636,7 +1792,7 @@ function openSoundSettings() {
                 <div class="volume-mixer">
                     <div class="volume-mixer-label">Master Volume:</div>
                     <div class="volume-mixer-track">
-                        <input type="range" id="volume-slider" class="xp-slider" min="0" max="100" value="${siteSettings.soundVolume}" oninput="updateVolume(this.value)" ${!siteSettings.soundEnabled ? 'disabled' : ''}>
+                        <input type="range" id="volume-slider" class="xp-slider" min="0" max="100" value="${siteSettings.soundVolume}" oninput="updateVolumeVisual(this.value)" onchange="updateVolumeWithSound(this.value)" ${!siteSettings.soundEnabled ? 'disabled' : ''}>
                         <span id="volume-value" class="volume-percent">${siteSettings.soundVolume}%</span>
                     </div>
                     <label class="mute-checkbox">
@@ -1818,7 +1974,8 @@ function toggleSound() {
     }
 }
 
-function updateVolume(value) {
+// Update volume display only (while dragging slider)
+function updateVolumeVisual(value) {
     siteSettings.soundVolume = parseInt(value);
     saveSettings();
     
@@ -1829,9 +1986,18 @@ function updateVolume(value) {
     
     // Update taskbar volume icon
     updateVolumeIcon();
-    
+}
+
+// Update volume and play ding (when slider is released)
+function updateVolumeWithSound(value) {
+    updateVolumeVisual(value);
     // Play Windows XP ding to preview volume
     playSound('ding');
+}
+
+// Legacy function for compatibility
+function updateVolume(value) {
+    updateVolumeWithSound(value);
 }
 
 function updateTimezone(timezone) {
@@ -1854,3 +2020,73 @@ updateClock = function() {
     const timeStr = now.toLocaleString('en-US', options);
     document.getElementById('clock').textContent = timeStr;
 };
+
+// ==================== Window Menu Dropdown System ====================
+let activeMenuWindow = null;
+
+function initWindowMenus() {
+    document.querySelectorAll('.window-menubar .menu-item').forEach(menuItem => {
+        menuItem.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const menubar = this.closest('.window-menubar');
+            const windowId = menubar.dataset.window;
+            
+            // If clicking on a dropdown item, don't toggle
+            if (e.target.closest('.menu-dropdown-item')) {
+                closeAllMenuDropdowns();
+                return;
+            }
+            
+            const wasActive = this.classList.contains('active');
+            
+            // Close all other dropdowns in this menubar
+            menubar.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Toggle this one
+            if (!wasActive) {
+                this.classList.add('active');
+                activeMenuWindow = windowId;
+            } else {
+                activeMenuWindow = null;
+            }
+        });
+        
+        // Hover to switch menus when one is already open
+        menuItem.addEventListener('mouseenter', function() {
+            const menubar = this.closest('.window-menubar');
+            const hasActiveMenu = menubar.querySelector('.menu-item.active');
+            
+            if (hasActiveMenu && hasActiveMenu !== this) {
+                menubar.querySelectorAll('.menu-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.classList.add('active');
+            }
+        });
+    });
+}
+
+function closeAllMenuDropdowns() {
+    document.querySelectorAll('.menu-item.active').forEach(item => {
+        item.classList.remove('active');
+    });
+    activeMenuWindow = null;
+}
+
+// Menu action functions
+function menuExit(windowId) {
+    closeAllMenuDropdowns();
+    closeWindow(windowId);
+}
+
+function menuMinimize(windowId) {
+    closeAllMenuDropdowns();
+    minimizeWindow(windowId);
+}
+
+function menuMaximize(windowId) {
+    closeAllMenuDropdowns();
+    maximizeWindow(windowId);
+}

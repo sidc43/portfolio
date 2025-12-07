@@ -64,9 +64,67 @@
             <div class="title-bar" onmousedown="startDrag(event, 'resume-window')">
                 <div class="title-bar-text">Resume - Notepad</div>
                 <div class="title-bar-controls">
-                    <button onclick="minimizeWindow('resume-window')">_</button>
-                    <button onclick="maximizeWindow('resume-window')">□</button>
-                    <button onclick="closeWindow('resume-window')">×</button>
+                    <button onclick="minimizeWindow('resume-window')"></button>
+                    <button onclick="maximizeWindow('resume-window')"></button>
+                    <button onclick="closeWindow('resume-window')"></button>
+                </div>
+            </div>
+            <div class="notepad-menubar window-menubar" data-window="resume-window">
+                <div class="menu-item">
+                    <span>File</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">New</div>
+                        <div class="menu-dropdown-item disabled">Open...</div>
+                        <div class="menu-dropdown-item disabled">Save</div>
+                        <div class="menu-dropdown-item disabled">Save As...</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Page Setup...</div>
+                        <div class="menu-dropdown-item disabled">Print...</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item" onclick="menuExit('resume-window')">Exit</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Edit</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Undo</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Cut</div>
+                        <div class="menu-dropdown-item disabled">Copy</div>
+                        <div class="menu-dropdown-item disabled">Paste</div>
+                        <div class="menu-dropdown-item disabled">Delete</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Find...</div>
+                        <div class="menu-dropdown-item disabled">Find Next</div>
+                        <div class="menu-dropdown-item disabled">Replace...</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Select All</div>
+                        <div class="menu-dropdown-item disabled">Time/Date</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Format</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Word Wrap</div>
+                        <div class="menu-dropdown-item disabled">Font...</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>View</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuMinimize('resume-window')">Minimize</div>
+                        <div class="menu-dropdown-item" onclick="menuMaximize('resume-window')">Maximize</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Status Bar</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Help</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Help Topics</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">About Notepad</div>
+                    </div>
                 </div>
             </div>
             <div class="window-body">
@@ -140,9 +198,30 @@
                     Operating System Project
                 </div>
                 <div class="title-bar-controls">
-                    <button onclick="minimizeWindow('os-window')">_</button>
-                    <button onclick="maximizeWindow('os-window')">□</button>
-                    <button onclick="closeWindow('os-window')">×</button>
+                    <button onclick="minimizeWindow('os-window')"></button>
+                    <button onclick="maximizeWindow('os-window')"></button>
+                    <button onclick="closeWindow('os-window')"></button>
+                </div>
+            </div>
+            <div class="project-menubar window-menubar" data-window="os-window">
+                <div class="menu-item">
+                    <span>File</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuExit('os-window')">Exit</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>View</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuMinimize('os-window')">Minimize</div>
+                        <div class="menu-dropdown-item" onclick="menuMaximize('os-window')">Maximize</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Help</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">About</div>
+                    </div>
                 </div>
             </div>
             <div class="window-body">
@@ -175,9 +254,30 @@
                     Storage Optimizer Project
                 </div>
                 <div class="title-bar-controls">
-                    <button onclick="minimizeWindow('storage-window')">_</button>
-                    <button onclick="maximizeWindow('storage-window')">□</button>
-                    <button onclick="closeWindow('storage-window')">×</button>
+                    <button onclick="minimizeWindow('storage-window')"></button>
+                    <button onclick="maximizeWindow('storage-window')"></button>
+                    <button onclick="closeWindow('storage-window')"></button>
+                </div>
+            </div>
+            <div class="project-menubar window-menubar" data-window="storage-window">
+                <div class="menu-item">
+                    <span>File</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuExit('storage-window')">Exit</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>View</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuMinimize('storage-window')">Minimize</div>
+                        <div class="menu-dropdown-item" onclick="menuMaximize('storage-window')">Maximize</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Help</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">About</div>
+                    </div>
                 </div>
             </div>
             <div class="window-body">
@@ -207,9 +307,30 @@
             <div class="title-bar" onmousedown="startDrag(event, 'game-window')">
                 <div class="title-bar-text">🎮 Umbra_</div>
                 <div class="title-bar-controls">
-                    <button onclick="minimizeWindow('game-window')">_</button>
-                    <button onclick="maximizeWindow('game-window')">□</button>
-                    <button onclick="closeWindow('game-window')">×</button>
+                    <button onclick="minimizeWindow('game-window')"></button>
+                    <button onclick="maximizeWindow('game-window')"></button>
+                    <button onclick="closeWindow('game-window')"></button>
+                </div>
+            </div>
+            <div class="project-menubar window-menubar" data-window="game-window">
+                <div class="menu-item">
+                    <span>File</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuExit('game-window')">Exit</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>View</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuMinimize('game-window')">Minimize</div>
+                        <div class="menu-dropdown-item" onclick="menuMaximize('game-window')">Maximize</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Help</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">About</div>
+                    </div>
                 </div>
             </div>
             <div class="window-body">
@@ -241,19 +362,71 @@
                     <span id="ie-title">Google - Microsoft Internet Explorer</span>
                 </div>
                 <div class="title-bar-controls">
-                    <button onclick="minimizeWindow('app-window')">_</button>
-                    <button onclick="maximizeWindow('app-window')">□</button>
-                    <button onclick="closeWindow('app-window')">×</button>
+                    <button onclick="minimizeWindow('app-window')"></button>
+                    <button onclick="maximizeWindow('app-window')"></button>
+                    <button onclick="closeWindow('app-window')"></button>
                 </div>
             </div>
             <!-- IE Menu Bar -->
-            <div class="ie-menubar">
-                <span>File</span>
-                <span>Edit</span>
-                <span>View</span>
-                <span>Favorites</span>
-                <span>Tools</span>
-                <span>Help</span>
+            <div class="ie-menubar window-menubar" data-window="app-window">
+                <div class="menu-item">
+                    <span>File</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">New</div>
+                        <div class="menu-dropdown-item disabled">Open...</div>
+                        <div class="menu-dropdown-item disabled">Save</div>
+                        <div class="menu-dropdown-item disabled">Save As...</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Print...</div>
+                        <div class="menu-dropdown-item disabled">Print Preview</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item" onclick="menuExit('app-window')">Exit</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Edit</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Cut</div>
+                        <div class="menu-dropdown-item disabled">Copy</div>
+                        <div class="menu-dropdown-item disabled">Paste</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Select All</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>View</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuMinimize('app-window')">Minimize</div>
+                        <div class="menu-dropdown-item" onclick="menuMaximize('app-window')">Maximize</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Toolbars</div>
+                        <div class="menu-dropdown-item disabled">Status Bar</div>
+                        <div class="menu-dropdown-item disabled">Explorer Bar</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Refresh</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Favorites</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Add to Favorites...</div>
+                        <div class="menu-dropdown-item disabled">Organize Favorites...</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Tools</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Internet Options...</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Help</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Help Topics</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">About Internet Explorer</div>
+                    </div>
+                </div>
             </div>
             <!-- IE Toolbar -->
             <div class="ie-toolbar">
@@ -353,25 +526,77 @@
                     Desktop
                 </div>
                 <div class="title-bar-controls">
-                    <button onclick="minimizeWindow('explorer-window')">_</button>
-                    <button onclick="maximizeWindow('explorer-window')">□</button>
-                    <button onclick="closeWindow('explorer-window')">×</button>
+                    <button onclick="minimizeWindow('explorer-window')"></button>
+                    <button onclick="maximizeWindow('explorer-window')"></button>
+                    <button onclick="closeWindow('explorer-window')"></button>
                 </div>
             </div>
-            <div class="explorer-menubar">
-                <span>File</span>
-                <span>Edit</span>
-                <span>View</span>
-                <span>Favorites</span>
-                <span>Tools</span>
-                <span>Help</span>
+            <div class="explorer-menubar window-menubar" data-window="explorer-window">
+                <div class="menu-item">
+                    <span>File</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">New</div>
+                        <div class="menu-dropdown-item disabled">Open</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item" onclick="menuExit('explorer-window')">Exit</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Edit</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Undo</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Cut</div>
+                        <div class="menu-dropdown-item disabled">Copy</div>
+                        <div class="menu-dropdown-item disabled">Paste</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Select All</div>
+                        <div class="menu-dropdown-item disabled">Invert Selection</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>View</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuMinimize('explorer-window')">Minimize</div>
+                        <div class="menu-dropdown-item" onclick="menuMaximize('explorer-window')">Maximize</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Toolbars</div>
+                        <div class="menu-dropdown-item disabled">Status Bar</div>
+                        <div class="menu-dropdown-item disabled">Explorer Bar</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Icons</div>
+                        <div class="menu-dropdown-item disabled">List</div>
+                        <div class="menu-dropdown-item disabled">Details</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Favorites</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Add to Favorites...</div>
+                        <div class="menu-dropdown-item disabled">Organize Favorites...</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Tools</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Folder Options...</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Help</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Help Topics</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">About Windows</div>
+                    </div>
+                </div>
             </div>
             <div class="explorer-toolbar">
                 <button class="explorer-toolbar-btn" onclick="navigateExplorerBack()">
                     <span class="toolbar-arrow">←</span>
                     <span>Back</span>
                 </button>
-                <button class="explorer-toolbar-btn">
+                <button class="explorer-toolbar-btn" onclick="navigateExplorerForward()">
                     <span class="toolbar-arrow">→</span>
                 </button>
                 <div class="explorer-toolbar-divider"></div>
@@ -475,9 +700,9 @@
                     C:\SidOS\system32\cmd.exe
                 </div>
                 <div class="title-bar-controls">
-                    <button onclick="minimizeWindow('cmd-window')">_</button>
-                    <button onclick="maximizeWindow('cmd-window')">□</button>
-                    <button onclick="closeWindow('cmd-window')">×</button>
+                    <button onclick="minimizeWindow('cmd-window')"></button>
+                    <button onclick="maximizeWindow('cmd-window')"></button>
+                    <button onclick="closeWindow('cmd-window')"></button>
                 </div>
             </div>
             <div class="cmd-body">
@@ -510,18 +735,70 @@
                     Control Panel
                 </div>
                 <div class="title-bar-controls">
-                    <button onclick="minimizeWindow('control-panel-window')">_</button>
-                    <button onclick="maximizeWindow('control-panel-window')">□</button>
-                    <button onclick="closeWindow('control-panel-window')">×</button>
+                    <button onclick="minimizeWindow('control-panel-window')"></button>
+                    <button onclick="maximizeWindow('control-panel-window')"></button>
+                    <button onclick="closeWindow('control-panel-window')"></button>
                 </div>
             </div>
-            <div class="explorer-menubar">
-                <span>File</span>
-                <span>Edit</span>
-                <span>View</span>
-                <span>Favorites</span>
-                <span>Tools</span>
-                <span>Help</span>
+            <div class="explorer-menubar window-menubar" data-window="control-panel-window">
+                <div class="menu-item">
+                    <span>File</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">New</div>
+                        <div class="menu-dropdown-item disabled">Open</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item" onclick="menuExit('control-panel-window')">Exit</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Edit</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Undo</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Cut</div>
+                        <div class="menu-dropdown-item disabled">Copy</div>
+                        <div class="menu-dropdown-item disabled">Paste</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Select All</div>
+                        <div class="menu-dropdown-item disabled">Invert Selection</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>View</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuMinimize('control-panel-window')">Minimize</div>
+                        <div class="menu-dropdown-item" onclick="menuMaximize('control-panel-window')">Maximize</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Toolbars</div>
+                        <div class="menu-dropdown-item disabled">Status Bar</div>
+                        <div class="menu-dropdown-item disabled">Explorer Bar</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">Icons</div>
+                        <div class="menu-dropdown-item disabled">List</div>
+                        <div class="menu-dropdown-item disabled">Details</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Favorites</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Add to Favorites...</div>
+                        <div class="menu-dropdown-item disabled">Organize Favorites...</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Tools</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Folder Options...</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Help</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">Help Topics</div>
+                        <hr class="menu-separator">
+                        <div class="menu-dropdown-item disabled">About Windows</div>
+                    </div>
+                </div>
             </div>
             <div class="explorer-toolbar">
                 <button class="explorer-toolbar-btn" onclick="showControlPanelHome()">
@@ -663,7 +940,7 @@
             <img src="public/information.ico" class="info-balloon-icon" alt="Info">
             <span class="info-balloon-title">Welcome to my portfolio!</span>
         </div>
-        <p class="info-balloon-text">Open Documents/Resume to look at my resume.<br>Open cmd and type help for more information!</p>
+        <p class="info-balloon-text">Open Documents\Resume.txt to look at my resume.<br>Open cmd and type help for more information!</p>
         <div class="info-balloon-links">
             Get Started: <a href="https://github.com/sidc43" target="_blank">Github</a> | <a href="https://linkedin.com/in/sidharthchilakamarri" target="_blank">LinkedIn</a>
         </div>
