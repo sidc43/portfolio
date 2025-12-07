@@ -12,8 +12,63 @@ let resizingWindow = null;
 let resizeDirection = '';
 let resizeStart = { x: 0, y: 0, width: 0, height: 0, left: 0, top: 0 };
 
+// ==================== Windows XP Sound Effects ====================
+// Using local Windows XP sounds from public/sounds/
+const xpSounds = {
+    startup: 'public/sounds/Windows XP Startup.wav',
+    shutdown: 'public/sounds/Windows XP Shutdown.wav',
+    error: 'public/sounds/Windows XP Error.wav',
+    minimize: 'public/sounds/Windows XP Minimize.wav',
+    ding: 'public/sounds/Windows XP Ding.wav',
+    appOpen: 'public/sounds/app-open.wav',
+    notify: 'public/sounds/notify.wav'
+};
+
+// Audio cache for preloading
+const audioCache = {};
+
+// Preload sounds
+function preloadSounds() {
+    Object.entries(xpSounds).forEach(([name, url]) => {
+        const audio = new Audio();
+        audio.src = url;
+        audio.preload = 'auto';
+        audioCache[name] = audio;
+    });
+}
+
+// Play sound effect
+function playSound(soundName) {
+    // Check if sounds are enabled
+    if (typeof siteSettings !== 'undefined' && !siteSettings.soundEnabled) {
+        return;
+    }
+    
+    const url = xpSounds[soundName];
+    if (!url) return;
+    
+    try {
+        const audio = new Audio(url);
+        // Apply volume from settings
+        if (typeof siteSettings !== 'undefined') {
+            audio.volume = siteSettings.soundVolume / 100;
+        } else {
+            audio.volume = 0.5;
+        }
+        audio.play().catch(e => {
+            // Ignore autoplay errors - user hasn't interacted yet
+            console.log('Sound play blocked:', e.message);
+        });
+    } catch (e) {
+        console.log('Sound error:', e);
+    }
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
+    // Preload sound effects
+    preloadSounds();
+    
     updateClock();
     setInterval(updateClock, 1000);
     
@@ -24,6 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!startMenu.contains(e.target) && !startButton.contains(e.target)) {
             startMenu.style.display = 'none';
             startButton.classList.remove('active');
+        }
+        
+        // Close info balloon when clicking outside
+        const infoBalloon = document.getElementById('info-balloon');
+        const infoIcon = document.querySelector('.info-icon');
+        if (infoBalloon && !infoBalloon.contains(e.target) && !infoIcon.contains(e.target)) {
+            infoBalloon.style.display = 'none';
         }
     });
     
@@ -52,6 +114,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize icon selection
     initIconSelection();
+    
+    // Play app-open sound on any button click (except minimize)
+    document.addEventListener('click', function(e) {
+        const button = e.target.closest('button');
+        if (button && !button.classList.contains('minimize-btn') && !button.closest('.title-bar-controls')) {
+            playSound('appOpen');
+        }
+    });
 });
 
 // Handle all mouse movement
@@ -164,6 +234,12 @@ function openWindow(windowId) {
     }
 }
 
+// Open window with app-open sound (for double-click actions on icons)
+function openWindowWithSound(windowId) {
+    playSound('appOpen');
+    openWindow(windowId);
+}
+
 function closeWindow(windowId) {
     const windowEl = document.getElementById(windowId);
     if (windowEl) {
@@ -179,6 +255,7 @@ function closeWindow(windowId) {
 function minimizeWindow(windowId) {
     const windowEl = document.getElementById(windowId);
     if (windowEl) {
+        playSound('minimize'); // Play XP minimize sound
         windowEl.style.display = 'none';
     }
 }
@@ -597,6 +674,32 @@ document.addEventListener('keydown', function(e) {
         closeWindow(activeWindow.id);
     }
 });
+
+// Info Balloon functionality
+function toggleInfoBalloon() {
+    const balloon = document.getElementById('info-balloon');
+    if (balloon.style.display === 'none' || balloon.style.display === '') {
+        balloon.style.display = 'block';
+        playSound('notify'); // Play notify sound when opening
+    } else {
+        balloon.style.display = 'none';
+    }
+}
+
+function closeInfoBalloon() {
+    document.getElementById('info-balloon').style.display = 'none';
+}
+
+// Show info balloon on first visit after login
+function showInfoBalloonOnLogin() {
+    setTimeout(() => {
+        const balloon = document.getElementById('info-balloon');
+        if (balloon) {
+            balloon.style.display = 'block';
+            playSound('notify'); // Play notify sound when balloon appears
+        }
+    }, 500);
+}
 
 // Calendar functionality
 let currentCalendarDate = new Date();
@@ -1106,6 +1209,7 @@ function processCommand(cmd, originalCmd) {
         return null;
     }
     
+    playSound('error'); // Play error sound for unrecognized command
     return `'${originalCmd}' is not recognized as an internal or external command,
 operable program or batch file.`;
 }
@@ -1368,16 +1472,21 @@ function hideLoginScreen() {
     document.getElementById('login-screen').style.display = 'none';
     document.querySelector('.desktop').style.display = 'grid';
     document.querySelector('.taskbar').style.display = 'flex';
+    playSound('startup'); // Play Windows XP startup sound
     
     // Restore window visibility
     document.querySelectorAll('.window').forEach(win => {
         win.style.visibility = 'visible';
     });
+    
+    // Show info balloon after a brief delay
+    showInfoBalloonOnLogin();
 }
 
 // Shutdown Screen Function
 function showShutdownScreen() {
     toggleStartMenu(); // Close the start menu
+    playSound('shutdown'); // Play Windows XP shutdown sound
     document.getElementById('shutdown-screen').style.display = 'flex';
     document.querySelector('.desktop').style.display = 'none';
     document.querySelector('.taskbar').style.display = 'none';
@@ -1387,7 +1496,7 @@ function showShutdownScreen() {
         win.style.visibility = 'hidden';
     });
     
-    // After 2 seconds, try to close the tab or show login screen as fallback
+    // After 3 seconds, try to close the tab or show login screen as fallback
     setTimeout(() => {
         window.close();
         // If window.close() doesn't work (blocked by browser), show login screen
@@ -1395,7 +1504,7 @@ function showShutdownScreen() {
             document.getElementById('shutdown-screen').style.display = 'none';
             showLoginScreen();
         }, 500);
-    }, 2000);
+    }, 3000);
 }
 
 // Alias for backwards compatibility
@@ -1440,6 +1549,9 @@ function applySettings() {
     
     // Update clock with timezone
     updateClock();
+    
+    // Update volume icon based on mute state
+    updateVolumeIcon();
 }
 
 // Initialize settings on load
@@ -1538,8 +1650,16 @@ function openSoundSettings() {
 }
 
 function toggleMute(isMuted) {
+    // If called without argument (from taskbar icon), toggle current state
+    if (typeof isMuted === 'undefined' || isMuted === null || typeof isMuted === 'object') {
+        isMuted = siteSettings.soundEnabled; // If currently enabled, we want to mute (isMuted = true)
+    }
+    
     siteSettings.soundEnabled = !isMuted;
     saveSettings();
+    
+    // Update taskbar volume icon
+    updateVolumeIcon();
     
     const volumeSlider = document.getElementById('volume-slider');
     if (volumeSlider) {
@@ -1550,6 +1670,51 @@ function toggleMute(isMuted) {
     const taskSpan = document.querySelector('.settings-task span');
     if (taskSpan) {
         taskSpan.textContent = siteSettings.soundEnabled ? 'Mute All Sounds' : 'Unmute All Sounds';
+    }
+    
+    // Update mute checkbox if it exists
+    const muteToggle = document.getElementById('mute-toggle');
+    if (muteToggle) {
+        muteToggle.checked = !siteSettings.soundEnabled;
+    }
+}
+
+// Update the volume icon in taskbar based on mute state or volume level
+function updateVolumeIcon() {
+    const volumeIcon = document.getElementById('volume-icon');
+    if (volumeIcon) {
+        // Show muted icon if sound is disabled OR volume is 0
+        if (siteSettings.soundEnabled && siteSettings.soundVolume > 0) {
+            volumeIcon.src = 'public/volume.png';
+            volumeIcon.title = 'Volume: ' + siteSettings.soundVolume + '% - Click to mute';
+        } else {
+            volumeIcon.src = 'public/volume-muted.png';
+            volumeIcon.title = 'Muted - Click to unmute';
+        }
+    }
+}
+
+// Toggle volume between 100% and 0% when clicking taskbar icon
+function toggleVolume() {
+    if (siteSettings.soundVolume > 0) {
+        // Currently has volume, set to 0
+        siteSettings.soundVolume = 0;
+    } else {
+        // Currently muted, set to 100
+        siteSettings.soundVolume = 100;
+        siteSettings.soundEnabled = true;
+    }
+    saveSettings();
+    updateVolumeIcon();
+    
+    // Update volume slider if control panel is open
+    const volumeSlider = document.getElementById('volume-slider');
+    if (volumeSlider) {
+        volumeSlider.value = siteSettings.soundVolume;
+    }
+    const volumeValue = document.getElementById('volume-value');
+    if (volumeValue) {
+        volumeValue.textContent = siteSettings.soundVolume + '%';
     }
 }
 
@@ -1661,6 +1826,12 @@ function updateVolume(value) {
     if (volumeValue) {
         volumeValue.textContent = value + '%';
     }
+    
+    // Update taskbar volume icon
+    updateVolumeIcon();
+    
+    // Play Windows XP ding to preview volume
+    playSound('ding');
 }
 
 function updateTimezone(timezone) {

@@ -842,7 +842,7 @@ body {
 .tray-icons {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     margin-right: 10px;
     padding-right: 10px;
     border-right: 1px solid rgba(255,255,255,0.2);
@@ -1197,6 +1197,120 @@ body {
     z-index: 9999;
     position: absolute;
     pointer-events: none;
+}
+
+/* Info Balloon Popup - Authentic XP Style */
+.info-balloon {
+    position: fixed;
+    bottom: 48px;
+    right: 150px;
+    width: 270px;
+    background: #ffffe1;
+    border: 1px solid #000;
+    border-radius: 8px 8px 0 8px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.25);
+    z-index: 10002;
+    padding: 10px 12px 12px 12px;
+    display: none;
+    font-family: 'Tahoma', sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.info-balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 8px;
+    border-width: 10px 0 0 10px;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent;
+}
+
+.info-balloon::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 9px;
+    border-width: 8px 0 0 8px;
+    border-style: solid;
+    border-color: #ffffe1 transparent transparent transparent;
+    z-index: 1;
+}
+
+.volume-icon {
+    cursor: pointer;
+}
+
+.volume-icon:hover {
+    filter: brightness(1.2);
+}
+
+.info-balloon-close {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: #aaa;
+    padding: 0;
+    line-height: 1;
+    font-weight: normal;
+}
+
+.info-balloon-close:hover {
+    color: #333;
+}
+
+.info-balloon-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.info-balloon-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.info-balloon-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    padding-top: 4px;
+}
+
+.info-balloon-text {
+    margin: 0 0 8px 0;
+    color: #000;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.info-balloon-links {
+    color: #000;
+    font-size: 11px;
+}
+
+.info-balloon-links a {
+    color: #0066cc;
+    text-decoration: underline;
+}
+
+.info-balloon-links a:hover {
+    color: #ff0000;
+}
+
+.info-icon {
+    cursor: pointer;
+}
+
+.info-icon:hover {
+    filter: brightness(1.2);
 }
 
 /* Calendar Popup */

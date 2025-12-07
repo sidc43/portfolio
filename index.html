@@ -20,7 +20,7 @@
             </div>
 
             <!-- Control Panel -->
-            <div class="icon" ondblclick="openWindow('control-panel-window')">
+            <div class="icon" ondblclick="openWindowWithSound('control-panel-window')">
                 <img src="public/controlpanel.ico" alt="Control Panel">
                 <span>Control Panel</span>
             </div>
@@ -38,13 +38,13 @@
             </div>
 
             <!-- Command Prompt -->
-            <div class="icon" ondblclick="openWindow('cmd-window')">
+            <div class="icon" ondblclick="openWindowWithSound('cmd-window')">
                 <img src="public/commandprompt.ico" alt="Command Prompt">
                 <span>Command Prompt</span>
             </div>
 
             <!-- Internet Explorer -->
-            <div class="icon" ondblclick="openWindow('app-window')">
+            <div class="icon" ondblclick="openWindowWithSound('app-window')">
                 <img src="public/internetexplorer.ico" alt="Internet Explorer">
                 <span>Internet Explorer</span>
             </div>
@@ -629,21 +629,9 @@
         </div>
         <div class="system-tray">
             <div class="tray-icons">
-                <svg class="tray-icon" viewBox="0 0 16 16" title="Network Connected">
-                    <!-- Classic XP dual computer network icon -->
-                    <rect x="0" y="3" width="6" height="5" fill="#808080"/>
-                    <rect x="1" y="4" width="4" height="3" fill="#00ffff"/>
-                    <rect x="10" y="6" width="6" height="5" fill="#808080"/>
-                    <rect x="11" y="7" width="4" height="3" fill="#00ffff"/>
-                    <line x1="6" y1="6" x2="10" y2="8" stroke="white" stroke-width="1"/>
-                </svg>
-                <svg class="tray-icon battery-icon" viewBox="0 0 16 16" title="Battery: 100%">
-                    <!-- Classic battery icon -->
-                    <rect x="1" y="5" width="11" height="6" fill="#808080"/>
-                    <rect x="2" y="6" width="9" height="4" fill="#000"/>
-                    <rect x="3" y="7" width="7" height="2" fill="#00ff00"/>
-                    <rect x="12" y="7" width="2" height="2" fill="#808080"/>
-                </svg>
+                <img src="public/information.ico" class="tray-icon info-icon" title="Information" onclick="toggleInfoBalloon()">
+                <img src="public/volume.png" class="tray-icon volume-icon" id="volume-icon" title="Volume" onclick="toggleVolume()">
+                <img src="public/network.ico" class="tray-icon" title="Network Connected">
             </div>
             <span id="clock" onclick="toggleCalendar()"></span>
         </div>
@@ -666,6 +654,19 @@
             <div class="calendar-day-header">Sa</div>
         </div>
         <div class="calendar-grid" id="calendar-grid"></div>
+    </div>
+
+    <!-- Info Balloon Popup -->
+    <div class="info-balloon" id="info-balloon">
+        <button class="info-balloon-close" onclick="closeInfoBalloon()">×</button>
+        <div class="info-balloon-header">
+            <img src="public/information.ico" class="info-balloon-icon" alt="Info">
+            <span class="info-balloon-title">Welcome to my portfolio!</span>
+        </div>
+        <p class="info-balloon-text">Open Documents/Resume to look at my resume.<br>Open cmd and type help for more information!</p>
+        <div class="info-balloon-links">
+            Get Started: <a href="https://github.com/sidc43" target="_blank">Github</a> | <a href="https://linkedin.com/in/sidharthchilakamarri" target="_blank">LinkedIn</a>
+        </div>
     </div>
 
     <!-- Desktop Selection Box -->
