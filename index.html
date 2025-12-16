@@ -295,7 +295,7 @@
         </div>
 
         <!-- Game Project Window -->
-        <div class="window" id="game-window" style="display: none; top: 120px; left: 250px; width: 550px; height: 400px;">
+        <div class="window" id="game-window" style="display: none; top: 60px; left: 120px; width: 1000px; height: 700px;">
             <div class="resize-handle resize-n"></div>
             <div class="resize-handle resize-s"></div>
             <div class="resize-handle resize-e"></div>
@@ -305,7 +305,7 @@
             <div class="resize-handle resize-se"></div>
             <div class="resize-handle resize-sw"></div>
             <div class="title-bar" onmousedown="startDrag(event, 'game-window')">
-                <div class="title-bar-text">🎮 Umbra_</div>
+                <div class="title-bar-text">Umbra_</div>
                 <div class="title-bar-controls">
                     <button onclick="minimizeWindow('game-window')"></button>
                     <button onclick="maximizeWindow('game-window')"></button>
@@ -333,16 +333,8 @@
                     </div>
                 </div>
             </div>
-            <div class="window-body">
-                <h2>🎮 Umbra_</h2>
-                <p><strong>Type:</strong> Solo Project</p>
-                <p><strong>Tech Stack:</strong> Unity, C#</p>
-                <ul class="project-description">
-                    <li>Applied Object-Oriented Programming principles to design and implement the game's mechanics</li>
-                    <li>Utilized cellular automata to generate random rooms, enhancing procedural generation</li>
-                    <li>Implemented a chunk based generation algorithm which reduced load times from 3 minutes to 28 seconds, achieving a performance improvement by around 84%</li>
-                </ul>
-                <button class="win98-button" onclick="window.open('https://github.com/sidc43', '_blank')">View on GitHub</button>
+            <div class="window-body" style="height: calc(100% - 60px); padding: 0;">
+                <iframe id="umbra-iframe" src="https://html-classic.itch.zone/html/15866360/Umbra/index.html" frameborder="0" style="width:100%;height:100%;border:none;"></iframe>
             </div>
         </div>
 
@@ -505,7 +497,7 @@
             <div class="ie-status-bar">
                 <span id="ie-status">Done</span>
                 <span class="ie-status-right">
-                    <span>🌐 Internet</span>
+                    <span>Internet</span>
                 </span>
             </div>
         </div>
