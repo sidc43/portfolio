@@ -675,7 +675,97 @@ function iePerformSearch() {
 function iePerformSearchQuery(query) {
     const searchUrl = 'https://www.google.com/search?q=' + encodeURIComponent(query);
     document.getElementById('ie-url-input').value = searchUrl;
-    ieShowBlockedPage(searchUrl, 'Google Search - Microsoft Internet Explorer', query);
+
+    const cfg = window.SEARCH_CONFIG;
+    if (!cfg || !cfg.apiKey || cfg.apiKey === 'YOUR_GOOGLE_API_KEY') {
+        ieShowBlockedPage(searchUrl, 'Google Search - Microsoft Internet Explorer', query);
+        return;
+    }
+
+    // Show loading state
+    const landing = document.getElementById('ie-landing');
+    const iframe = document.getElementById('ie-iframe');
+    const titleEl = document.getElementById('ie-title');
+    const status = document.getElementById('ie-status');
+    landing.style.display = 'none';
+    iframe.style.display = 'none';
+    titleEl.textContent = 'Searching... - Microsoft Internet Explorer';
+    status.textContent = 'Searching...';
+
+    // Show a loading blob page
+    const loadingHtml = `<!DOCTYPE html><html><head><style>body{font-family:Tahoma,Arial,sans-serif;font-size:12px;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#fff;color:#333;}p{font-size:13px;}</style></head><body><p>&#128269; Searching for <strong>${query.replace(/</g,'&lt;')}</strong>...</p></body></html>`;
+    const loadBlob = new Blob([loadingHtml], { type: 'text/html' });
+    iframe.src = URL.createObjectURL(loadBlob);
+    iframe.style.display = 'block';
+    ieCurrentView = 'iframe';
+
+    const apiUrl = `https://www.googleapis.com/customsearch/v1?key=${cfg.apiKey}&cx=${cfg.cx}&q=${encodeURIComponent(query)}`;
+
+    fetch(apiUrl)
+        .then(r => r.json())
+        .then(data => {
+            const items = data.items || [];
+            const safeQuery = query.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            const total = data.searchInformation ? data.searchInformation.formattedTotalResults : '?';
+            const time = data.searchInformation ? data.searchInformation.formattedSearchTime : '?';
+
+            let resultsHtml = items.map(item => {
+                const title = (item.title || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                const snippet = (item.snippet || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                const link = (item.link || '').replace(/"/g,'&quot;');
+                const display = (item.displayLink || item.link || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                return `<div class="result">
+  <a class="result-title" href="${link}" target="_blank">${title}</a>
+  <div class="result-url">${display}</div>
+  <div class="result-snippet">${snippet}</div>
+</div>`;
+            }).join('');
+
+            if (items.length === 0) {
+                resultsHtml = '<p style="color:#555;margin-top:20px;">No results found.</p>';
+            }
+
+            const html = `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Tahoma, Arial, sans-serif; font-size: 12px; background: #fff; margin: 0; padding: 0; }
+  .toolbar { background: #ECE9D8; border-bottom: 1px solid #ACA899; padding: 4px 10px; display: flex; align-items: center; gap: 8px; }
+  .toolbar img { height: 20px; }
+  .toolbar-query { font-size: 12px; color: #333; }
+  .stats { font-size: 11px; color: #777; padding: 4px 10px 0 10px; }
+  .results { padding: 4px 10px 16px 10px; }
+  .result { margin-bottom: 16px; }
+  .result-title { font-size: 14px; color: #0000CC; text-decoration: none; display: block; margin-bottom: 1px; }
+  .result-title:hover { text-decoration: underline; }
+  .result-url { color: #006621; font-size: 11px; margin-bottom: 2px; }
+  .result-snippet { color: #333; font-size: 12px; line-height: 1.4; }
+  .divider { border: none; border-top: 1px solid #ddd; margin: 6px 0 10px 0; }
+  .google-logo { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; letter-spacing: -1px; padding: 6px 10px 2px 10px; }
+  .google-logo span:nth-child(1){color:#4285F4}span:nth-child(2){color:#EA4335}span:nth-child(3){color:#FBBC05}span:nth-child(4){color:#4285F4}span:nth-child(5){color:#34A853}span:nth-child(6){color:#EA4335}
+</style>
+</head>
+<body>
+<div class="google-logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+<div class="toolbar">
+  <span class="toolbar-query">Results for: <strong>${safeQuery}</strong></span>
+</div>
+<div class="stats">About ${total} results (${time} seconds)</div>
+<hr class="divider">
+<div class="results">${resultsHtml}</div>
+</body>
+</html>`;
+
+            const blob = new Blob([html], { type: 'text/html' });
+            iframe.src = URL.createObjectURL(blob);
+            titleEl.textContent = safeQuery + ' - Google Search - Microsoft Internet Explorer';
+            status.textContent = 'Done';
+        })
+        .catch(err => {
+            console.error('Search API error:', err);
+            ieShowBlockedPage(searchUrl, 'Google Search - Microsoft Internet Explorer', query);
+        });
 }
 
 function ieShowBlockedPage(url, title, label) {
@@ -757,16 +847,60 @@ function ieImFeelingLucky() {
 
 function ieSearchWeb(type) {
     const searchInput = document.getElementById('ie-search-input');
-    const query = searchInput.value.trim() || '';
+    const query = searchInput.value.trim() || 'wallpaper';
+
+    if (type === 'images') {
+        const cfg = window.SEARCH_CONFIG;
+        const imgUrl = 'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(query);
+        document.getElementById('ie-url-input').value = imgUrl;
+
+        if (!cfg || !cfg.apiKey || cfg.apiKey === 'YOUR_GOOGLE_API_KEY') {
+            ieShowBlockedPage(imgUrl, 'Google Images - Microsoft Internet Explorer');
+            return;
+        }
+
+        const landing = document.getElementById('ie-landing');
+        const iframe = document.getElementById('ie-iframe');
+        const titleEl = document.getElementById('ie-title');
+        const status = document.getElementById('ie-status');
+        landing.style.display = 'none';
+        titleEl.textContent = 'Google Images - Microsoft Internet Explorer';
+        status.textContent = 'Searching...';
+
+        const loadingHtml = `<!DOCTYPE html><html><head><style>body{font-family:Tahoma,Arial,sans-serif;font-size:12px;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#fff;color:#333;}</style></head><body><p>&#128247; Loading images for <strong>${query.replace(/</g,'&lt;')}</strong>...</p></body></html>`;
+        iframe.src = URL.createObjectURL(new Blob([loadingHtml], { type: 'text/html' }));
+        iframe.style.display = 'block';
+        ieCurrentView = 'iframe';
+
+        const apiUrl = `https://www.googleapis.com/customsearch/v1?key=${cfg.apiKey}&cx=${cfg.cx}&q=${encodeURIComponent(query)}&searchType=image&num=10`;
+        fetch(apiUrl)
+            .then(r => r.json())
+            .then(data => {
+                const items = data.items || [];
+                const safeQuery = query.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                let gridHtml = items.map(item => {
+                    const imgSrc = (item.link || '').replace(/"/g,'&quot;');
+                    const imgTitle = (item.title || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                    const contextLink = (item.image && item.image.contextLink ? item.image.contextLink : item.link || '').replace(/"/g,'&quot;');
+                    return `<a href="${contextLink}" target="_blank" class="img-item"><img src="${imgSrc}" alt="${imgTitle}" title="${imgTitle}" onerror="this.parentElement.style.display='none'"><div class="img-caption">${imgTitle}</div></a>`;
+                }).join('');
+                if (items.length === 0) gridHtml = '<p style="color:#555;grid-column:1/-1;">No images found.</p>';
+                const html = `<!DOCTYPE html><html><head><style>*{box-sizing:border-box;}body{font-family:Tahoma,Arial,sans-serif;font-size:12px;background:#fff;margin:0;padding:0;}.toolbar{background:#ECE9D8;border-bottom:1px solid #ACA899;padding:4px 10px;font-size:12px;}.google-logo{font-family:Arial,sans-serif;font-size:18px;font-weight:bold;padding:6px 10px 2px 10px;}.google-logo span:nth-child(1){color:#4285F4}span:nth-child(2){color:#EA4335}span:nth-child(3){color:#FBBC05}span:nth-child(4){color:#4285F4}span:nth-child(5){color:#34A853}span:nth-child(6){color:#EA4335}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;padding:10px;}.img-item{text-decoration:none;color:#333;display:flex;flex-direction:column;border:1px solid #ddd;padding:4px;background:#fafafa;}.img-item:hover{border-color:#4285F4;}.img-item img{width:100%;height:100px;object-fit:cover;display:block;}.img-caption{font-size:10px;padding:3px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}</style></head><body><div class="google-logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span> Images</div><div class="toolbar">Results for: <strong>${safeQuery}</strong></div><div class="grid">${gridHtml}</div></body></html>`;
+                iframe.src = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+                titleEl.textContent = safeQuery + ' - Google Images - Microsoft Internet Explorer';
+                status.textContent = 'Done';
+            })
+            .catch(err => {
+                console.error('Images API error:', err);
+                ieShowBlockedPage(imgUrl, 'Google Images - Microsoft Internet Explorer');
+            });
+        return;
+    }
 
     let url, title;
     switch(type) {
-        case 'images':
-            url = 'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(query || 'wallpaper');
-            title = 'Google Images - Microsoft Internet Explorer';
-            break;
         case 'maps':
-            url = 'https://www.google.com/maps' + (query ? '/search/' + encodeURIComponent(query) : '');
+            url = 'https://www.google.com/maps' + (query && query !== 'wallpaper' ? '/search/' + encodeURIComponent(query) : '');
             title = 'Google Maps - Microsoft Internet Explorer';
             break;
         case 'news':
