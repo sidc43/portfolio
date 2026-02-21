@@ -618,8 +618,8 @@ function ieNavigate() {
         return;
     }
     
-    // For most sites, open in new tab (due to iframe restrictions)
-    window.open(url, '_blank');
+    // Attempt to load in iframe; show blocked page as fallback info
+    ieShowBlockedPage(url, url + ' - Microsoft Internet Explorer');
 }
 
 function ieLoadYouTube(url) {
@@ -674,48 +674,111 @@ function iePerformSearch() {
 
 function iePerformSearchQuery(query) {
     const searchUrl = 'https://www.google.com/search?q=' + encodeURIComponent(query);
-    window.open(searchUrl, '_blank');
-    document.getElementById('ie-status').textContent = 'Opening Google Search...';
+    document.getElementById('ie-url-input').value = searchUrl;
+    ieShowBlockedPage(searchUrl, 'Google Search - Microsoft Internet Explorer', query);
+}
+
+function ieShowBlockedPage(url, title, label) {
+    const safeLabel = (label || url).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const safeUrl = url.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const escapedUrl = url.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+
+    const html = `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Tahoma, Arial, sans-serif; font-size: 12px; background: #fff; margin: 0; padding: 0; }
+  .header { background: #ECE9D8; border-bottom: 2px solid #ACA899; padding: 6px 12px; display: flex; align-items: center; gap: 8px; }
+  .header-icon { font-size: 18px; }
+  .header-title { font-size: 13px; font-weight: bold; color: #333; }
+  .content { padding: 24px 36px; }
+  h1 { font-size: 20px; color: #CC0000; margin: 0 0 12px 0; padding-bottom: 6px; border-bottom: 2px solid #CC0000; }
+  .section-title { font-size: 13px; font-weight: bold; margin: 16px 0 4px 0; }
+  p { margin: 6px 0; color: #333; line-height: 1.5; }
+  .url-box { background: #f0f0f0; border: 1px solid #ccc; padding: 6px 10px; margin: 10px 0; color: #0000CC; word-break: break-all; font-size: 11px; }
+  .divider { border: none; border-top: 1px solid #ddd; margin: 16px 0; }
+  .open-btn { background: #ECE9D8; border: 2px outset #ACA899; padding: 4px 16px; cursor: pointer; font-size: 12px; font-family: Tahoma, Arial, sans-serif; margin-top: 8px; }
+  .open-btn:active { border-style: inset; }
+  ul { margin: 4px 0 0 0; padding-left: 20px; color: #333; }
+  li { margin: 3px 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <span class="header-icon">&#10060;</span>
+  <span class="header-title">The page cannot be displayed</span>
+</div>
+<div class="content">
+  <h1>The page cannot be displayed</h1>
+  <p>The page you are looking for is currently unavailable. The Web site might be experiencing technical difficulties, or you may need to adjust your browser settings.</p>
+  <hr class="divider">
+  <div class="section-title">Requested page:</div>
+  <div class="url-box">${safeUrl}</div>
+  <div class="section-title">Please try the following:</div>
+  <ul>
+    <li>This page has restricted embedding in other pages (<strong>X-Frame-Options</strong>).</li>
+    <li>Click <strong>Open in New Window</strong> below to view it in a full browser window.</li>
+  </ul>
+  <br>
+  <button class="open-btn" onclick="window.open('${escapedUrl}', '_blank')">&#x1F5D7; Open in New Window</button>
+</div>
+</body>
+</html>`;
+
+    const blob = new Blob([html], { type: 'text/html' });
+    const blobUrl = URL.createObjectURL(blob);
+
+    const landing = document.getElementById('ie-landing');
+    const iframe = document.getElementById('ie-iframe');
+    const titleEl = document.getElementById('ie-title');
+
+    landing.style.display = 'none';
+    iframe.style.display = 'block';
+    iframe.src = blobUrl;
+    titleEl.textContent = title || 'Microsoft Internet Explorer';
+    ieCurrentView = 'iframe';
+    document.getElementById('ie-status').textContent = 'Done';
 }
 
 function ieImFeelingLucky() {
     const searchInput = document.getElementById('ie-search-input');
     const query = searchInput.value.trim();
-    
+
     if (query) {
         const luckyUrl = 'https://www.google.com/search?q=' + encodeURIComponent(query) + '&btnI=1';
-        window.open(luckyUrl, '_blank');
+        document.getElementById('ie-url-input').value = luckyUrl;
+        ieShowBlockedPage(luckyUrl, "I'm Feeling Lucky - Microsoft Internet Explorer", query);
     } else {
-        // Random fun sites
-        const funSites = [
-            'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-            'https://github.com/sidc43',
-            'https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/'
-        ];
-        const randomSite = funSites[Math.floor(Math.random() * funSites.length)];
-        window.open(randomSite, '_blank');
+        // Rick roll via YouTube embed
+        ieLoadYouTube('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     }
 }
 
 function ieSearchWeb(type) {
     const searchInput = document.getElementById('ie-search-input');
     const query = searchInput.value.trim() || '';
-    
-    let url;
+
+    let url, title;
     switch(type) {
         case 'images':
             url = 'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(query || 'wallpaper');
+            title = 'Google Images - Microsoft Internet Explorer';
             break;
         case 'maps':
-            url = 'https://www.google.com/maps';
+            url = 'https://www.google.com/maps' + (query ? '/search/' + encodeURIComponent(query) : '');
+            title = 'Google Maps - Microsoft Internet Explorer';
             break;
         case 'news':
             url = 'https://news.google.com';
+            title = 'Google News - Microsoft Internet Explorer';
             break;
         default:
             url = 'https://www.google.com';
+            title = 'Google - Microsoft Internet Explorer';
     }
-    window.open(url, '_blank');
+    document.getElementById('ie-url-input').value = url;
+    ieShowBlockedPage(url, title);
 }
 
 // Window click to bring to front
