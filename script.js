@@ -1292,9 +1292,9 @@ const fileSystem = {
     'C:\\Users\\Sidharth': ['Documents', 'Desktop', 'Downloads'],
     'C:\\Users\\Sidharth\\Desktop': ['Documents', 'cmd.exe', 'Control Panel', 'Internet Explorer', 'Recycle Bin'],
     'C:\\Users\\Sidharth\\Desktop\\Documents': ['Projects', 'Resume.pdf'],
-    'C:\\Users\\Sidharth\\Desktop\\Documents\\Projects': ['OS', 'Flow Sensor', 'Airbrush System'],
+    'C:\\Users\\Sidharth\\Desktop\\Documents\\Projects': ['OS', 'Flow Sensor', 'Airbrush System', 'Umbra_'],
     'C:\\Users\\Sidharth\\Documents': ['Projects', 'Resume.pdf'],
-    'C:\\Users\\Sidharth\\Documents\\Projects': ['OS', 'Flow Sensor', 'Airbrush System'],
+    'C:\\Users\\Sidharth\\Documents\\Projects': ['OS', 'Flow Sensor', 'Airbrush System', 'Umbra_'],
     'C:\\Users\\Sidharth\\Downloads': []
 };
 
@@ -1723,16 +1723,20 @@ function navigateToProjects(addToHistory = true) {
             <img src="https://win98icons.alexmeub.com/icons/png/nail-0.png" alt="Airbrush System">
             <span>Airbrush System</span>
         </div>
+        <div class="explorer-file" ondblclick="openWindow('umbra-window');">
+            <img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png" alt="Umbra_">
+            <span>Umbra_</span>
+        </div>
     `;
     
     // Update status bar
-    document.getElementById('explorer-status').textContent = '3 object(s)';
+    document.getElementById('explorer-status').textContent = '4 object(s)';
     
     // Update details
     document.getElementById('explorer-details').innerHTML = `
         <p><strong>Projects</strong></p>
         <p>File Folder</p>
-        <p>3 objects</p>
+        <p>4 objects</p>
     `;
 }
 

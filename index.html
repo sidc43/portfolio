@@ -343,6 +343,49 @@
             </div>
         </div>
 
+        <div class="window" id="umbra-window" style="display: none; top: 60px; left: 120px; width: 1000px; height: 700px;">
+            <div class="resize-handle resize-n"></div>
+            <div class="resize-handle resize-s"></div>
+            <div class="resize-handle resize-e"></div>
+            <div class="resize-handle resize-w"></div>
+            <div class="resize-handle resize-ne"></div>
+            <div class="resize-handle resize-nw"></div>
+            <div class="resize-handle resize-se"></div>
+            <div class="resize-handle resize-sw"></div>
+            <div class="title-bar" onmousedown="startDrag(event, 'umbra-window')">
+                <div class="title-bar-text">Umbra_</div>
+                <div class="title-bar-controls">
+                    <button onclick="minimizeWindow('umbra-window')"></button>
+                    <button onclick="maximizeWindow('umbra-window')"></button>
+                    <button onclick="closeWindow('umbra-window')"></button>
+                </div>
+            </div>
+            <div class="project-menubar window-menubar" data-window="umbra-window">
+                <div class="menu-item">
+                    <span>File</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuExit('umbra-window')">Exit</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>View</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item" onclick="menuMinimize('umbra-window')">Minimize</div>
+                        <div class="menu-dropdown-item" onclick="menuMaximize('umbra-window')">Maximize</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <span>Help</span>
+                    <div class="menu-dropdown">
+                        <div class="menu-dropdown-item disabled">About</div>
+                    </div>
+                </div>
+            </div>
+            <div class="window-body" style="height: calc(100% - 60px); padding: 0;">
+                <iframe id="umbra-iframe" src="https://html-classic.itch.zone/html/15866360/Umbra/index.html" frameborder="0" style="width:100%;height:100%;border:none;"></iframe>
+            </div>
+        </div>
+
         <!-- App Window with iframe (Internet Explorer) -->
         <div class="window ie-window" id="app-window" style="display: none; top: 30px; left: 80px; width: 900px; height: 600px;">
             <div class="resize-handle resize-n"></div>
@@ -980,6 +1023,13 @@
                     <div class="item-text">
                         <span class="item-title">Airbrush System</span>
                         <span class="item-desc">Flow-Coating System</span>
+                    </div>
+                </div>
+                <div class="start-menu-item pinned" onclick="openWindow('umbra-window'); toggleStartMenu();">
+                    <img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png" alt="">
+                    <div class="item-text">
+                        <span class="item-title">Umbra_</span>
+                        <span class="item-desc">Unity Project</span>
                     </div>
                 </div>
                 <hr class="start-menu-separator">
