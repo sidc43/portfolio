@@ -63,7 +63,7 @@
             <div class="resize-handle resize-se"></div>
             <div class="resize-handle resize-sw"></div>
             <div class="title-bar" onmousedown="startDrag(event, 'resume-window')">
-                <div class="title-bar-text">Resume - Notepad</div>
+                <div class="title-bar-text">Resume.pdf - Notepad</div>
                 <div class="title-bar-controls">
                     <button onclick="minimizeWindow('resume-window')"></button>
                     <button onclick="maximizeWindow('resume-window')"></button>
@@ -131,11 +131,10 @@
             <div class="window-body">
                 <div class="resume-content">
                     <h1>Sidharth Chilakamarri</h1>
-                    <p class="contact-info">Arlington, TX | 650-309-2513 | sidharth.chilakamarri@gmail.com</p>
+                    <p class="contact-info">Arlington, TX | 650-309-2513 | sidharth.chilakamarri@gmail.com | https://sidc43.github.io/portfolio/</p>
                     
                     <h2>Education</h2>
                     <p><strong>University of Texas at Arlington, BS Computer Science</strong> — August 2023 - May 2027<br>
-                    Minor: Data Science<br>
                     Relevant coursework: Data Structures and Algorithms, Databases, Theory of Computation, ARM Assembly</p>
                     
                     <h2>Technical Skills</h2>
@@ -154,28 +153,28 @@
                     </ul>
                     
                     <h2>Projects</h2>
-                    <p><strong>Operating System using x86 Assembly and C++ | Team project</strong></p>
+                    <p><strong>Operating System using x86 Assembly and C++</strong> | <a href="https://github.com/sidc43/OperatingSystem" target="_blank">github.com/sidc43/OperatingSystem</a></p>
                     <ul>
                         <li>Architected and built a bare-metal AArch64 operating system from scratch targeting QEMU</li>
                         <li>Implemented a free-list heap allocator, GICv2 interrupt controller, and ARM Generic Timer driver, enabling preemptive 100 Hz tick-based scheduling</li>
                         <li>Developed full virtio-mmio driver stack (GPU, keyboard, tablet, block device) over a self-written split-ring virtqueue engine, driving a 1280×800 BGRA framebuffer</li>
                         <li>Implemented a virtual filesystem with an in-memory ramfs backend and persistent block-device storage using a custom on-disk format with sector-addressed file tables</li>
                     </ul>
-                    <p><strong>Storage Optimizer and Backup Planner using C++ | Solo project</strong></p>
+                    <p><strong>Proximal Flow Sensor using C++ and Python</strong></p>
                     <ul>
-                        <li>Built a command-line tool to scan directories, compute file sizes, and recommend an optimal backup set under a user-defined storage limit</li>
-                        <li>Applied 0/1 knapsack dynamic programming to maximize total "importance score" of selected files while maintaining capacity constraints</li>
-                        <li>Used SHA-256 hashing and hash maps to detect and group duplicate files, reducing redundant storage in backup plans</li>
-                        <li>Generated detailed backup reports (summary stats, chosen files, duplicates) in human-readable and JSON formats to support analysis and future automation</li>
+                        <li>Integrated a proximal differential-pressure flow sensor with an ESP32 microcontroller to measure bidirectional patient airflow in a single-limb breathing circuit</li>
+                        <li>Computed airflow from measured pressure differential and produced real-time flow readings for ventilation monitoring and analysis</li>
+                        <li>Designed and 3D-printed a compact enclosure for the sensor system, optimizing for low dead-space volume and reduced clogging risk from moisture</li>
                     </ul>
-                    <p><strong>2D game using Unity with C# | Solo project</strong></p>
+                    <p><strong>Automated Airbrush Flow-Coating System using C++</strong></p>
                     <ul>
-                        <li>Applied Object-Oriented Programming principles to design and implement the game's mechanics</li>
-                        <li>Utilized cellular automata to generate random rooms, enhancing procedural generation</li>
-                        <li>Implemented a chunk based generation algorithm which reduced load times from 3 minutes to 28 seconds, achieving a performance improvement by around 84%</li>
+                        <li>Co-designed an automated belt-and-pulley linear scanning platform to address irregular hand motion and improve reproducibility of reagent spray-coating on tissue histology slides</li>
+                        <li>Developed firmware to control stepper speed, travel distance, bidirectional sweeps, and pass count, enabling repeatable, speed-controlled scan cycles for more consistent liquid deposition</li>
+                        <li>Implemented a servo-actuated trigger mechanism to press/release the airbrush handle with consistent timing, standardizing airflow across automated passes</li>
                     </ul>
                     
                     <div class="button-row">
+                        <a href="Resume.pdf" target="_blank" class="win98-button">Download Resume PDF</a>
                         <a href="https://github.com/sidc43" target="_blank" class="win98-button">View GitHub</a>
                         <a href="https://www.linkedin.com/in/sidharth-chilakamarri-6656aa213/" target="_blank" class="win98-button">View LinkedIn</a>
                     </div>
@@ -235,11 +234,11 @@
                     <li>Developed full virtio-mmio driver stack (GPU, keyboard, tablet, block device) over a self-written split-ring virtqueue engine, driving a 1280×800 BGRA framebuffer</li>
                     <li>Implemented a virtual filesystem with an in-memory ramfs backend and persistent block-device storage using a custom on-disk format with sector-addressed file tables</li>
                 </ul>
-                <button class="win98-button" onclick="window.open('https://github.com/sidc43', '_blank')">View on GitHub</button>
+                <button class="win98-button" onclick="window.open('https://github.com/sidc43/OperatingSystem', '_blank')">View on GitHub</button>
             </div>
         </div>
 
-        <!-- Storage Optimizer Window -->
+        <!-- Proximal Flow Sensor Window -->
         <div class="window" id="storage-window" style="display: none; top: 100px; left: 200px; width: 550px; height: 400px;">
             <div class="resize-handle resize-n"></div>
             <div class="resize-handle resize-s"></div>
@@ -252,7 +251,7 @@
             <div class="title-bar" onmousedown="startDrag(event, 'storage-window')">
                 <div class="title-bar-text">
                     <img src="public/storageoptimizationproject.ico" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
-                    Storage Optimizer Project
+                    Proximal Flow Sensor
                 </div>
                 <div class="title-bar-controls">
                     <button onclick="minimizeWindow('storage-window')"></button>
@@ -282,21 +281,19 @@
                 </div>
             </div>
             <div class="window-body">
-                <h2>💾 Storage Optimizer and Backup Planner</h2>
+                <h2>🌬️ Proximal Flow Sensor</h2>
                 <p><strong>Type:</strong> Solo Project</p>
-                <p><strong>Tech Stack:</strong> C++</p>
+                <p><strong>Tech Stack:</strong> C++, Python</p>
                 <ul class="project-description">
-                    <li>Built a command-line tool to scan directories, compute file sizes, and recommend an optimal backup set under a user-defined storage limit</li>
-                    <li>Applied 0/1 knapsack dynamic programming to maximize total "importance score" of selected files while maintaining capacity constraints</li>
-                    <li>Used SHA-256 hashing and hash maps to detect and group duplicate files, reducing redundant storage in backup plans</li>
-                    <li>Generated detailed backup reports (summary stats, chosen files, duplicates) in human-readable and JSON formats to support analysis and future automation</li>
+                    <li>Integrated a proximal differential-pressure flow sensor with an ESP32 microcontroller to measure bidirectional patient airflow in a single-limb breathing circuit</li>
+                    <li>Computed airflow from measured pressure differential and produced real-time flow readings for ventilation monitoring and analysis</li>
+                    <li>Designed and 3D-printed a compact enclosure for the sensor system, optimizing for low dead-space volume and reduced clogging risk from moisture</li>
                 </ul>
-                <button class="win98-button" onclick="window.open('https://github.com/sidc43', '_blank')">View on GitHub</button>
             </div>
         </div>
 
         <!-- Game Project Window -->
-        <div class="window" id="game-window" style="display: none; top: 60px; left: 120px; width: 1000px; height: 700px;">
+        <div class="window" id="game-window" style="display: none; top: 60px; left: 120px; width: 600px; height: 420px;">
             <div class="resize-handle resize-n"></div>
             <div class="resize-handle resize-s"></div>
             <div class="resize-handle resize-e"></div>
@@ -306,7 +303,7 @@
             <div class="resize-handle resize-se"></div>
             <div class="resize-handle resize-sw"></div>
             <div class="title-bar" onmousedown="startDrag(event, 'game-window')">
-                <div class="title-bar-text">Umbra_</div>
+                <div class="title-bar-text">Automated Airbrush Flow-Coating</div>
                 <div class="title-bar-controls">
                     <button onclick="minimizeWindow('game-window')"></button>
                     <button onclick="maximizeWindow('game-window')"></button>
@@ -334,8 +331,15 @@
                     </div>
                 </div>
             </div>
-            <div class="window-body" style="height: calc(100% - 60px); padding: 0;">
-                <iframe id="umbra-iframe" src="https://html-classic.itch.zone/html/15866360/Umbra/index.html" frameborder="0" style="width:100%;height:100%;border:none;"></iframe>
+            <div class="window-body">
+                <h2>🖌️ Automated Airbrush Flow-Coating System</h2>
+                <p><strong>Type:</strong> Solo Project</p>
+                <p><strong>Tech Stack:</strong> C++</p>
+                <ul class="project-description">
+                    <li>Co-designed an automated belt-and-pulley linear scanning platform to address irregular hand motion and improve reproducibility of reagent spray-coating on tissue histology slides</li>
+                    <li>Developed firmware to control stepper speed, travel distance, bidirectional sweeps, and pass count, enabling repeatable, speed-controlled scan cycles for more consistent liquid deposition</li>
+                    <li>Implemented a servo-actuated trigger mechanism to press/release the airbrush handle with consistent timing, standardizing airflow across automated passes</li>
+                </ul>
             </div>
         </div>
 
@@ -933,7 +937,7 @@
             <img src="public/information.ico" class="info-balloon-icon" alt="Info">
             <span class="info-balloon-title">Welcome to my portfolio!</span>
         </div>
-        <p class="info-balloon-text">Open Documents\Resume.txt to look at my resume.<br>Open cmd and type help for more information!</p>
+        <p class="info-balloon-text">Open Documents\Resume.pdf to view my resume.<br>Open cmd and type help for more information!</p>
         <div class="info-balloon-links">
             Get Started: <a href="https://github.com/sidc43" target="_blank">Github</a> | <a href="https://linkedin.com/in/sidharthchilakamarri" target="_blank">LinkedIn</a>
         </div>
@@ -967,15 +971,15 @@
                 <div class="start-menu-item pinned" onclick="openWindow('storage-window'); toggleStartMenu();">
                     <img src="public/storageoptimizationproject.ico" alt="">
                     <div class="item-text">
-                        <span class="item-title">Storage Optimizer</span>
-                        <span class="item-desc">Backup Planner</span>
+                        <span class="item-title">Flow Sensor</span>
+                        <span class="item-desc">Proximal Flow Sensor</span>
                     </div>
                 </div>
-                <div class="start-menu-item pinned" onclick="openWindow('app-window'); toggleStartMenu();">
-                    <img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png" alt="">
+                <div class="start-menu-item pinned" onclick="openWindow('game-window'); toggleStartMenu();">
+                    <img src="https://win98icons.alexmeub.com/icons/png/nail-0.png" alt="">
                     <div class="item-text">
-                        <span class="item-title">Umbra_</span>
-                        <span class="item-desc">Unity Project</span>
+                        <span class="item-title">Airbrush System</span>
+                        <span class="item-desc">Flow-Coating System</span>
                     </div>
                 </div>
                 <hr class="start-menu-separator">

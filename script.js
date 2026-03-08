@@ -1291,10 +1291,10 @@ const fileSystem = {
     'C:\\Users': ['Sidharth', 'Public'],
     'C:\\Users\\Sidharth': ['Documents', 'Desktop', 'Downloads'],
     'C:\\Users\\Sidharth\\Desktop': ['Documents', 'cmd.exe', 'Control Panel', 'Internet Explorer', 'Recycle Bin'],
-    'C:\\Users\\Sidharth\\Desktop\\Documents': ['Projects', 'Resume.txt'],
-    'C:\\Users\\Sidharth\\Desktop\\Documents\\Projects': ['OS', 'Storage Optimizer', 'Umbra_'],
-    'C:\\Users\\Sidharth\\Documents': ['Projects', 'Resume.txt'],
-    'C:\\Users\\Sidharth\\Documents\\Projects': ['OS', 'Storage Optimizer', 'Umbra_'],
+    'C:\\Users\\Sidharth\\Desktop\\Documents': ['Projects', 'Resume.pdf'],
+    'C:\\Users\\Sidharth\\Desktop\\Documents\\Projects': ['OS', 'Flow Sensor', 'Airbrush System'],
+    'C:\\Users\\Sidharth\\Documents': ['Projects', 'Resume.pdf'],
+    'C:\\Users\\Sidharth\\Documents\\Projects': ['OS', 'Flow Sensor', 'Airbrush System'],
     'C:\\Users\\Sidharth\\Downloads': []
 };
 
@@ -1406,9 +1406,9 @@ function processCommand(cmd, originalCmd) {
         'skills': `  Languages: Python, Java, C#, JavaScript, C, SQL
   Frameworks: Unity, Node.js, React
   Tools: Git, Linux, VS Code`,
-        'projects': `  1. Operating System - Custom x86 kernel with memory management
-  2. Storage Optimizer - Cross-platform backup solution
-  3. 2D Game - Unity game with procedural generation
+        'projects': `  1. Operating System - Bare-metal AArch64 OS targeting QEMU
+  2. Proximal Flow Sensor - ESP32-based airflow measurement device
+  3. Automated Airbrush - Belt-and-pulley flow-coating system
   Type 'resume' to view full details`,
         'cls': 'CLEAR',
         'exit': 'EXIT',
@@ -1669,7 +1669,7 @@ function navigateToDocuments(addToHistory = true) {
         </div>
         <div class="explorer-file" ondblclick="openWindow('resume-window');">
             <img src="public/resume.ico" alt="Resume">
-            <span>Resume.txt</span>
+            <span>Resume.pdf</span>
         </div>
     `;
     
@@ -1716,12 +1716,12 @@ function navigateToProjects(addToHistory = true) {
             <span>OS Project</span>
         </div>
         <div class="explorer-file" ondblclick="openWindow('storage-window');">
-            <img src="https://win98icons.alexmeub.com/icons/png/hard_disk_drive-3.png" alt="Storage Optimizer">
-            <span>Storage Optimizer</span>
+            <img src="https://win98icons.alexmeub.com/icons/png/hardware-3.png" alt="Flow Sensor">
+            <span>Flow Sensor</span>
         </div>
         <div class="explorer-file" ondblclick="openWindow('game-window');">
-            <img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png" alt="Umbra_">
-            <span>Umbra_</span>
+            <img src="https://win98icons.alexmeub.com/icons/png/nail-0.png" alt="Airbrush System">
+            <span>Airbrush System</span>
         </div>
     `;
     
